@@ -85,6 +85,19 @@ def load_artifacts():
         feature_cols = pickle.load(f)
     return model, scaler, feature_cols
 
+@st.cache_resource
+def load_clf_artifacts():
+    """Loading serialized classifier artifacts from disk..."""
+    with open("crop_recommendation_model.pkl", "rb") as f:
+        model_clf = pickle.load(f)
+    with open("scaler.pkl", "rb") as f:
+        scaler_clf = pickle.load(f)
+    with open("feature_cols_clf.pkl", "rb") as f:
+        feature_cols_clf = pickle.load(f)
+    with open("label_encoder.pkl", "rb") as f:
+        le = pickle.load(f)
+    return model_clf, scaler_clf, feature_cols_clf, le
+
 @st.cache_data
 def load_data_and_profiles():
     """Loading unified dataset and generating crop averages..."""
@@ -101,16 +114,28 @@ def load_data_and_profiles():
     
     return states, seasons, crops, crop_yields, crop_ideals, df_m
 
-# 4. Defining feature engineering function...
-def engineer_features(df):
-    """Engineering interaction variables..."""
-    df_feat = df.copy()
-    df_feat['total_nutrients'] = df_feat['N'] + df_feat['P'] + df_feat['K']
+def engineer_features(df_input):
+    df_feat = df_input.copy()
     eps = 1e-5
+    
+    # 1. Total Soil Nutrients
+    df_feat['total_nutrients'] = df_feat['N'] + df_feat['P'] + df_feat['K']
+    
+    # 2. Nutrient Ratios (avoiding division by zero)
     df_feat['N_P_ratio'] = df_feat['N'] / (df_feat['P'] + eps)
     df_feat['K_P_ratio'] = df_feat['K'] / (df_feat['P'] + eps)
+    
+    # 3. Climate Interactions
     df_feat['temp_humidity_index'] = df_feat['avg_temp_c'] * df_feat['avg_humidity_percent'] / 100.0
     df_feat['rain_ph_interaction'] = df_feat['total_rainfall_mm'] * df_feat['pH']
+    
+    # 4. Input Intensity Indicators
+    if 'fertilizer' in df_feat.columns and 'area' in df_feat.columns:
+        df_feat['fertilizer_per_area'] = df_feat['fertilizer'] / (df_feat['area'] + eps)
+        df_feat['pesticide_per_area'] = df_feat['pesticide'] / (df_feat['area'] + eps)
+        df_feat['fertilizer_pesticide_ratio'] = df_feat['fertilizer'] / (df_feat['pesticide'] + eps)
+        df_feat['rain_fertilizer_interaction'] = df_feat['total_rainfall_mm'] * df_feat['fertilizer']
+    
     return df_feat
 
 # 5. Configuring live weather fetch...
@@ -608,10 +633,40 @@ if predict_button:
     else:
         with st.spinner("Fetching live weather information and performing regression predictions..."):
             model, scaler, feature_cols = load_artifacts()
+            model_clf, scaler_clf, feature_cols_clf, le = load_clf_artifacts()
             
             # Fetching weather parameters...
             temp, humidity, current_rain = get_weather(city)
             
+            # --- 1. Recommendation Prediction via Classifier ---
+            row_clf = {
+                'year': 2026,
+                'avg_temp_c': temp,
+                'total_rainfall_mm': rainfall_input,
+                'avg_humidity_percent': humidity,
+                'N': n,
+                'P': p,
+                'K': k,
+                'pH': ph,
+                'area': planting_area,
+                'fertilizer': fertilizer_input,
+                'pesticide': pesticide_input
+            }
+            # Assigning classifier season and city dummies
+            for se in seasons:
+                row_clf[f'season_{se}'] = 1.0 if se == season_input else 0.0
+            for ci in cities:
+                row_clf[f'city_{ci}'] = 1.0 if ci == city else 0.0
+                
+            df_clf = pd.DataFrame([row_clf])
+            df_clf = df_clf.reindex(columns=feature_cols_clf, fill_value=0)
+            df_clf_eng = engineer_features(df_clf)
+            df_clf_scaled = pd.DataFrame(scaler_clf.transform(df_clf_eng), columns=df_clf_eng.columns)
+            
+            pred_clf_encoded = model_clf.predict(df_clf_scaled)[0]
+            recommended = le.inverse_transform([pred_clf_encoded])[0]
+            
+            # --- 2. Yield & Economics Prediction via Regressor ---
             # Evaluating predicted yields for all candidate crops...
             candidate_rows = []
             for crop in crops:
@@ -625,7 +680,7 @@ if predict_button:
                     'K': k,
                     'pH': ph
                 }
-                # Assigning one-hot dummies...
+                # Assigning regressor one-hot dummies...
                 for c in crops:
                     row[f'crop_{c}'] = 1.0 if c == crop else 0.0
                 for s in states:
@@ -637,17 +692,10 @@ if predict_button:
                 candidate_rows.append(row)
                 
             df_candidates = pd.DataFrame(candidate_rows)
-            
-            # Aligning with feature columns...
             df_candidates = df_candidates.reindex(columns=feature_cols, fill_value=0)
-            
-            # Engineering feature parameters...
             df_eng = engineer_features(df_candidates)
-            
-            # Scaling features and maintaining column names...
             df_scaled = pd.DataFrame(scaler.transform(df_eng), columns=df_eng.columns)
             
-            # Running inference prediction...
             predicted_yields = model.predict(df_scaled)
             
             # Calculating revenues...
@@ -658,10 +706,15 @@ if predict_button:
                 rev = py * price
                 results.append((crop, py, rev, price))
                 
-            # Recommending the highest profit crop...
-            results.sort(key=lambda x: x[2], reverse=True)
-            recommended, yield_val, profit, price = results[0]
-            
+            # Lookup recommended crop details from regressor results
+            rec_details = [r for r in results if r[0].lower().strip() == recommended.lower().strip()]
+            if rec_details:
+                _, yield_val, profit, price = rec_details[0]
+            else:
+                price = CROP_PRICES.get(recommended.lower().strip(), 30000)
+                yield_val = 1.0
+                profit = price * yield_val
+                
             # Enhanced Economics calculations...
             fert_html, fert_cost = get_fertilizer_calculator(n, p, k, recommended, planting_area, crop_ideals)
             
@@ -675,6 +728,9 @@ if predict_button:
             total_input_cost = fert_cost + other_cost_total
             gross_revenue = yield_val * price * planting_area
             net_profit = gross_revenue - total_input_cost
+            
+            # Sort regressor results for alternative crops leaderboard
+            results.sort(key=lambda x: x[2], reverse=True)
             
             col_left, col_right = st.columns([3, 2], gap="large")
             
@@ -744,8 +800,9 @@ if predict_button:
             with col_table:
                 html_list = "<div style='display:flex; flex-direction:column; gap:0.5rem;'>"
                 for rank, (c, y, r, p) in enumerate(results[:5]):
-                    bg = "#F0FDF4" if rank == 0 else "white"
-                    border = "#DCFCE7" if rank == 0 else "#E2E8F0"
+                    is_rec = (c.lower().strip() == recommended.lower().strip())
+                    bg = "#F0FDF4" if is_rec else "white"
+                    border = "#DCFCE7" if is_rec else "#E2E8F0"
                     html_list += f"<div style='background: {bg}; border: 1px solid {border}; padding: 0.5rem 0.75rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; color: #1E293B !important;'><div><strong style='color:#1E293B;'>{rank+1}. {c.capitalize()}</strong><br/><span style='color:#64748B; font-size:0.75rem;'>Yield: {y:.2f} MT/ha</span></div><div style='text-align: right;'><strong style='color:#059669;'>INR {r:,.0f}</strong><br/><span style='color:#94A3B8; font-size:0.7rem;'>INR {p:,}/MT</span></div></div>"
                 html_list += "</div>"
                 st.markdown(html_list, unsafe_allow_html=True)
