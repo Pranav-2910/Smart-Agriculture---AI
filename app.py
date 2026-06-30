@@ -542,40 +542,9 @@ def get_crop_calendar(recommended, season):
 states, seasons, crops, crop_yields, crop_ideals, df_full = load_data_and_profiles()
 cities = sorted(df_full["city"].unique().tolist())
 
-# Sidebar: Soil Input Controls
-st.sidebar.markdown("### 🧪 Soil Chemistry Profile")
-n = st.sidebar.slider("Nitrogen (N) - mg/kg", 10, 120, 50)
-p = st.sidebar.slider("Phosphorus (P) - mg/kg", 5, 100, 40)
-k = st.sidebar.slider("Potassium (K) - mg/kg", 5, 100, 30)
-
-st.sidebar.markdown(get_npk_breakdown(n, p, k), unsafe_allow_html=True)
-
-ph = st.sidebar.slider("Soil pH level", 3.5, 9.9, 6.5, step=0.1)
-st.sidebar.markdown(get_ph_indicator(ph), unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
+# Sidebar: Location & Crop Settings
 st.sidebar.markdown("### 📍 Location & Crop Settings")
 state_input = st.sidebar.selectbox("Select State", states, index=states.index("Andhra Pradesh") if "Andhra Pradesh" in states else 0)
-season_input = st.sidebar.selectbox("Select Season", seasons, index=seasons.index("Kharif") if "Kharif" in seasons else 0)
-
-# Querying dynamic defaults based on state/season...
-state_season_data = df_full[(df_full['state'] == state_input) & (df_full['season'] == season_input)]
-default_fert = float(state_season_data['fertilizer'].mean()) if not state_season_data.empty else 80000.0
-default_pest = float(state_season_data['pesticide'].mean()) if not state_season_data.empty else 300.0
-default_area = float(state_season_data['area'].mean()) if not state_season_data.empty else 1.0
-default_rain_avg = float(state_season_data['total_rainfall_mm'].mean()) if not state_season_data.empty else 1000.0
-default_temp_avg = float(state_season_data['avg_temp_c'].mean()) if not state_season_data.empty else 25.6
-default_hum_avg = float(state_season_data['avg_humidity_percent'].mean()) if not state_season_data.empty else 70.0
-
-
-planting_area = st.sidebar.number_input("Planting Area (Hectares)", 0.1, 10000000.0, default_area, step=0.5, key=f"area_{state_input}_{season_input}")
-fertilizer_input = st.sidebar.number_input("Planned Fertilizer (kg)", 0.0, 100000000.0, default_fert, step=1000.0, key=f"fert_{state_input}_{season_input}")
-pesticide_input = st.sidebar.number_input("Planned Pesticide (kg)", 0.0, 10000000.0, default_pest, step=50.0, key=f"pest_{state_input}_{season_input}")
-
-st.sidebar.markdown("### 💧 Water Profile")
-rainfall_input = st.sidebar.slider("Expected Seasonal Rainfall (mm)", 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{state_input}_{season_input}")
-
-st.sidebar.markdown("### 🔍 Weather API Settings")
 
 # Selecting from main cities of the state...
 main_cities = MAIN_STATE_CITIES.get(state_input, ["Hyderabad", "Bangalore", "Mumbai", "New Delhi"])
@@ -587,6 +556,44 @@ if city_select == "Other Cities...":
     city = st.sidebar.selectbox("Select Other City", other_cities, index=0) if other_cities else main_cities[0]
 else:
     city = city_select
+
+season_input = st.sidebar.selectbox("Select Season", seasons, index=seasons.index("Kharif") if "Kharif" in seasons else 0)
+
+# Querying dynamic defaults based on city/season...
+city_season_data = df_full[(df_full['city'] == city) & (df_full['season'] == season_input)]
+default_fert = float(city_season_data['fertilizer'].mean()) if not city_season_data.empty else 80000.0
+default_pest = float(city_season_data['pesticide'].mean()) if not city_season_data.empty else 300.0
+default_area = float(city_season_data['area'].mean()) if not city_season_data.empty else 1.0
+default_rain_avg = float(city_season_data['total_rainfall_mm'].mean()) if not city_season_data.empty else 1000.0
+default_temp_avg = float(city_season_data['avg_temp_c'].mean()) if not city_season_data.empty else 25.6
+default_hum_avg = float(city_season_data['avg_humidity_percent'].mean()) if not city_season_data.empty else 70.0
+
+default_n = int(city_season_data['N'].mean()) if not city_season_data.empty else 50
+default_p = int(city_season_data['P'].mean()) if not city_season_data.empty else 40
+default_k = int(city_season_data['K'].mean()) if not city_season_data.empty else 30
+default_ph = float(city_season_data['pH'].mean()) if not city_season_data.empty else 6.5
+
+# Sidebar: Soil Input Controls
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🧪 Soil Chemistry Profile")
+n = st.sidebar.slider("Nitrogen (N) - mg/kg", 10, 120, default_n, key=f"n_slider_{city}_{season_input}")
+p = st.sidebar.slider("Phosphorus (P) - mg/kg", 5, 100, default_p, key=f"p_slider_{city}_{season_input}")
+k = st.sidebar.slider("Potassium (K) - mg/kg", 5, 100, default_k, key=f"k_slider_{city}_{season_input}")
+
+st.sidebar.markdown(get_npk_breakdown(n, p, k), unsafe_allow_html=True)
+
+ph = st.sidebar.slider("Soil pH level", 3.5, 9.9, default_ph, step=0.1, key=f"ph_slider_{city}_{season_input}")
+st.sidebar.markdown(get_ph_indicator(ph), unsafe_allow_html=True)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🚜 Cultivation Parameters")
+planting_area = st.sidebar.number_input("Planting Area (Hectares)", 0.1, 10000000.0, default_area, step=0.5, key=f"area_{city}_{season_input}")
+fertilizer_input = st.sidebar.number_input("Planned Fertilizer (kg)", 0.0, 100000000.0, default_fert, step=1000.0, key=f"fert_{city}_{season_input}")
+pesticide_input = st.sidebar.number_input("Planned Pesticide (kg)", 0.0, 10000000.0, default_pest, step=50.0, key=f"pest_{city}_{season_input}")
+
+st.sidebar.markdown("### 💧 Water Profile")
+rainfall_input = st.sidebar.slider("Expected Seasonal Rainfall (mm)", 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{city}_{season_input}")
+
 
 
 
