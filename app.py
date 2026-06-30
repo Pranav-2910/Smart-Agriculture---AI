@@ -445,7 +445,7 @@ def get_fertilizer_calculator(n, p, k, recommended, area, crop_ideals):
     <div style='background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #E2E8F0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); color: #1E293B !important;'>
         <h4 style='margin: 0 0 0.75rem 0; color: #047857; font-weight: 600;'>⚖️ Fertilizer Requirement Calculator</h4>
         <p style='color: #64748B; font-size: 0.85rem; margin-top: 0; margin-bottom: 1rem;'>Estimated total inputs required for your planting area of <strong>{area:.1f} Hectares</strong>:</p>
-        <div style='display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;'>
+        <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 0.75rem;'>
             <div style='background: #EFF6FF; padding: 0.75rem; border-radius: 8px; border: 1px solid #BFDBFE; text-align: center;'>
                 <small style='color: #2563EB; font-weight: 600; text-transform: uppercase; font-size: 0.7rem;'>Urea (N)</small>
                 <h3 style='margin: 0.25rem 0; color: #1E3A8A; font-weight: 700; font-size: 1.2rem;'>{urea:.1f} kg</h3>
