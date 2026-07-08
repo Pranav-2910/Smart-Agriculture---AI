@@ -393,13 +393,28 @@ def load_data_and_profiles():
 def engineer_features(df):
     """Engineering interaction variables..."""
     df_feat = df.copy()
-    df_feat['total_nutrients'] = df_feat['N'] + df_feat['P'] + df_feat['K']
     eps = 1e-5
+    
+    # 1. Total Soil Nutrients...
+    df_feat['total_nutrients'] = df_feat['N'] + df_feat['P'] + df_feat['K']
+    
+    # 2. Nutrient Ratios (avoiding division by zero)...
     df_feat['N_P_ratio'] = df_feat['N'] / (df_feat['P'] + eps)
     df_feat['K_P_ratio'] = df_feat['K'] / (df_feat['P'] + eps)
+    
+    # 3. Climate Interactions...
     df_feat['temp_humidity_index'] = df_feat['avg_temp_c'] * df_feat['avg_humidity_percent'] / 100.0
     df_feat['rain_ph_interaction'] = df_feat['total_rainfall_mm'] * df_feat['pH']
+    
+    # 4. Input Intensity Indicators (only for classifier if columns exist)...
+    if 'fertilizer' in df_feat.columns and 'area' in df_feat.columns:
+        df_feat['fertilizer_per_area'] = df_feat['fertilizer'] / (df_feat['area'] + eps)
+        df_feat['pesticide_per_area'] = df_feat['pesticide'] / (df_feat['area'] + eps)
+        df_feat['fertilizer_pesticide_ratio'] = df_feat['fertilizer'] / (df_feat['pesticide'] + eps)
+        df_feat['rain_fertilizer_interaction'] = df_feat['total_rainfall_mm'] * df_feat['fertilizer']
+        
     return df_feat
+
 
 # 6. Configuring live weather fetch...
 def get_weather(city):
@@ -980,9 +995,11 @@ if predict_button:
                 row_clf[f'city_{ci}'] = 1.0 if ci == city else 0.0
                 
             df_clf = pd.DataFrame([row_clf])
-            df_clf = df_clf.reindex(columns=feature_cols_clf, fill_value=0)
             df_clf_eng = engineer_features(df_clf)
+            # Reindexing to match the exact features the classifier scaler was fit on...
+            df_clf_eng = df_clf_eng.reindex(columns=list(scaler_clf.feature_names_in_), fill_value=0)
             df_clf_scaled = pd.DataFrame(scaler_clf.transform(df_clf_eng), columns=df_clf_eng.columns)
+
             
             pred_clf_encoded = model_clf.predict(df_clf_scaled)[0]
             recommended = le.inverse_transform([pred_clf_encoded])[0]
@@ -1013,9 +1030,11 @@ if predict_button:
                 candidate_rows.append(row)
                 
             df_candidates = pd.DataFrame(candidate_rows)
-            df_candidates = df_candidates.reindex(columns=feature_cols, fill_value=0)
             df_eng = engineer_features(df_candidates)
+            # Reindexing to match the exact features the regressor scaler was fit on...
+            df_eng = df_eng.reindex(columns=list(scaler.feature_names_in_), fill_value=0)
             df_scaled = pd.DataFrame(scaler.transform(df_eng), columns=df_eng.columns)
+
             
             predicted_yields = model.predict(df_scaled)
             
