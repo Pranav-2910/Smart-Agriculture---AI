@@ -149,12 +149,34 @@ def get_weather(city):
             data = response.json()
             temp = data['main']['temp']
             humidity = data['main']['humidity']
+            
+            # Fetching weather condition ID and main status description...
+            weather_id = data['weather'][0]['id'] if 'weather' in data and len(data['weather']) > 0 else 800
+            weather_main = data['weather'][0]['main'].lower() if 'weather' in data and len(data['weather']) > 0 else ""
+            
             rain_info = data.get('rain', {})
             rainfall = rain_info.get('1h', rain_info.get('3h', 0.0))
+            
+            # Estimating rainfall from weather codes if the direct rain gauge value is missing or 0.0...
+            if rainfall == 0.0:
+                # Codes 2xx: Thunderstorm, 3xx: Drizzle, 5xx: Rain
+                if 200 <= weather_id < 300:
+                    rainfall = 5.0 # Estimating thunderstorm rain...
+                elif 300 <= weather_id < 400:
+                    rainfall = 1.5 # Estimating drizzle...
+                elif 500 <= weather_id < 600:
+                    if weather_id in [500, 520, 531]:
+                        rainfall = 2.0 # Estimating light rain...
+                    else:
+                        rainfall = 6.0 # Estimating moderate/heavy rain...
+                elif "rain" in weather_main or "drizzle" in weather_main or "thunderstorm" in weather_main:
+                    rainfall = 3.0 # Setting general rain fallback...
+                    
             return float(temp), float(humidity), float(rainfall)
     except:
         pass
     return 25.6, 71.5, 0.0 # Fallback averages...
+
 
 def search_cities(query):
     """Searching matching cities using OpenWeatherMap Geocoding API..."""
@@ -619,6 +641,20 @@ pesticide_input = st.sidebar.number_input("Planned Pesticide (kg)", 0.0, 1000000
 st.sidebar.markdown("### 💧 Water Profile")
 rainfall_input = st.sidebar.slider("Expected Seasonal Rainfall (mm)", 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{city}_{season_input}")
 
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🔧 Weather API Override")
+override_weather = st.sidebar.checkbox("Override Live Weather", value=False)
+if override_weather:
+    # Querying manual weather inputs...
+    manual_temp = st.sidebar.slider("Current Temperature (°C)", 10.0, 50.0, float(default_temp_avg), step=0.5)
+    manual_humidity = st.sidebar.slider("Current Humidity (%)", 10, 100, int(default_hum_avg))
+    manual_current_rain = st.sidebar.slider("Current Rainfall (mm/hr)", 0.0, 50.0, 0.0, step=0.5)
+else:
+    manual_temp = 0.0
+    manual_humidity = 0
+    manual_current_rain = 0.0
+
+
 
 
 
@@ -635,8 +671,14 @@ if predict_button:
             model, scaler, feature_cols = load_artifacts()
             model_clf, scaler_clf, feature_cols_clf, le = load_clf_artifacts()
             
-            # Fetching weather parameters...
-            temp, humidity, current_rain = get_weather(city)
+            # Retrieving weather parameters...
+            if override_weather:
+                temp = manual_temp
+                humidity = manual_humidity
+                current_rain = manual_current_rain
+            else:
+                temp, humidity, current_rain = get_weather(city)
+
             
             # --- 1. Recommendation Prediction via Classifier ---
             row_clf = {
@@ -752,7 +794,8 @@ if predict_button:
             
             with col_right:
                 # Displaying live metrics alongside seasonal averages in the card...
-                st.markdown(get_weather_card(temp, humidity, current_rain, default_temp_avg, default_hum_avg, rainfall_input, city), unsafe_allow_html=True)
+                display_city = city + " (Override)" if override_weather else city
+                st.markdown(get_weather_card(temp, humidity, current_rain, default_temp_avg, default_hum_avg, rainfall_input, display_city), unsafe_allow_html=True)
                 
                 st.markdown(f"<h4 style='margin:1.5rem 0 0.5rem 0; color:#047857;'>Cultivation Economics ({planting_area:.1f} Hectares):</h4>", unsafe_allow_html=True)
                 
