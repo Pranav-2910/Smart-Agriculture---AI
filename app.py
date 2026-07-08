@@ -75,8 +75,8 @@ st.markdown("""
     .custom-html-card {
         color: inherit !important;
     }
-    .custom-html-card strong, .custom-html-card span, .custom-html-card li, .custom-html-card div {
-        color: inherit;
+    .custom-html-card *:not([style*="color"]) {
+        color: inherit !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -1174,6 +1174,40 @@ if predict_button:
                 st.markdown(get_suitability_check(recommended, n, p, k, ph, rainfall_input, crop_ideals), unsafe_allow_html=True)
                 st.markdown(get_amendment_tips(n, p, k, ph, recommended, crop_ideals), unsafe_allow_html=True)
                 st.markdown(fert_html, unsafe_allow_html=True)
+                
+                # --- 3. Price Volatility & Market Risk Calculations ---
+                pessimistic_rev = gross_revenue * 0.80
+                optimistic_rev = gross_revenue * 1.20
+                
+                pessimistic_profit = pessimistic_rev - total_input_cost
+                optimistic_profit = optimistic_rev - total_input_cost
+                
+                st.markdown(f"#### {t['risk_header']}")
+                
+                # Color code warnings based on pessimistic outcomes...
+                if pessimistic_profit < 0:
+                    risk_alert = t['risk_high_alert'].format(loss=abs(pessimistic_profit))
+                    risk_bg = "#FEF2F2"
+                    risk_border = "#FEE2E2"
+                    risk_text_color = "#991B1B"
+                else:
+                    risk_alert = t['risk_low_alert'].format(profit=pessimistic_profit)
+                    risk_bg = "#F0FDF4"
+                    risk_border = "#DCFCE7"
+                    risk_text_color = "#166534"
+                    
+                st.markdown(f"""
+                <div class="custom-html-card" style='background-color:{risk_bg}; border: 1px solid {risk_border}; padding:1.2rem; border-radius:12px; margin-top:0.75rem; color:{risk_text_color} !important;'>
+                    <div style='display:flex; justify-content:space-between; margin-bottom:0.75rem; font-size:0.85rem;'>
+                        <div><strong>{t['risk_pessimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {pessimistic_profit:,.2f}</span></div>
+                        <div style='text-align:right;'><strong>{t['risk_optimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {optimistic_profit:,.2f}</span></div>
+                    </div>
+                    <div style='border-top:1px dashed {risk_border}; padding-top:0.5rem; font-size:0.85rem; font-weight:500; color:{risk_text_color};'>
+                        {risk_alert}
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
                 st.markdown(get_crop_calendar(recommended, season_input), unsafe_allow_html=True)
             
             with col_right:
@@ -1207,39 +1241,6 @@ if predict_button:
                         <small style='color:#64748B;'>{profit_text}</small>
                         <h2 style='margin: 0.25rem 0; color:{profit_color};'>INR {net_profit:,.2f}</h2>
                         <span style='color:#94A3B8; font-size:0.85rem;'>Return on Investment</span>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                # --- 3. Price Volatility & Market Risk Calculations ---
-                pessimistic_rev = gross_revenue * 0.80
-                optimistic_rev = gross_revenue * 1.20
-                
-                pessimistic_profit = pessimistic_rev - total_input_cost
-                optimistic_profit = optimistic_rev - total_input_cost
-                
-                st.markdown(f"#### {t['risk_header']}")
-                
-                # Color code warnings based on pessimistic outcomes...
-                if pessimistic_profit < 0:
-                    risk_alert = t['risk_high_alert'].format(loss=abs(pessimistic_profit))
-                    risk_bg = "#FEF2F2"
-                    risk_border = "#FEE2E2"
-                    risk_text_color = "#991B1B"
-                else:
-                    risk_alert = t['risk_low_alert'].format(profit=pessimistic_profit)
-                    risk_bg = "#F0FDF4"
-                    risk_border = "#DCFCE7"
-                    risk_text_color = "#166534"
-                    
-                st.markdown(f"""
-                <div class="custom-html-card" style='background-color:{risk_bg}; border: 1px solid {risk_border}; padding:1.2rem; border-radius:12px; margin-top:0.75rem; color:{risk_text_color} !important;'>
-                    <div style='display:flex; justify-content:space-between; margin-bottom:0.75rem; font-size:0.85rem;'>
-                        <div><strong>{t['risk_pessimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {pessimistic_profit:,.2f}</span></div>
-                        <div style='text-align:right;'><strong>{t['risk_optimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {optimistic_profit:,.2f}</span></div>
-                    </div>
-                    <div style='border-top:1px dashed {risk_border}; padding-top:0.5rem; font-size:0.85rem; font-weight:500; color:{risk_text_color};'>
-                        {risk_alert}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
