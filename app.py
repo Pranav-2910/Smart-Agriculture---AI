@@ -13,6 +13,74 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Rendering custom styles...
+st.markdown("""
+<style>
+    /* Importing modern Google Font... */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif;
+    }
+    
+    /* Styling title banner... */
+    .title-banner {
+        background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+        padding: 2rem;
+        border-radius: 16px;
+        color: white;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .title-banner h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white !important;
+    }
+    .title-banner p {
+        margin: 0.5rem 0 0 0;
+        font-size: 1.1rem;
+        opacity: 0.9;
+        color: white !important;
+    }
+    
+    /* Styling metric cards... */
+    .metric-card {
+        background-color: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 1.25rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        color: #1E293B !important;
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Styling prediction header success box... */
+    .prediction-header {
+        background: #ECFDF5;
+        border-left: 8px solid #10B981;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        color: #065F46 !important;
+    }
+    
+    /* Ensuring high-contrast text inside custom HTML cards... */
+    .custom-html-card {
+        color: inherit !important;
+    }
+    .custom-html-card strong, .custom-html-card span, .custom-html-card li, .custom-html-card div {
+        color: inherit;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # 2. Defining multilingual translation dictionary...
 TRANSLATIONS = {
     "English": {
@@ -584,7 +652,7 @@ def get_ph_indicator(ph):
         pct = (ph - 3.5) / (9.9 - 3.5) * 100
     
     return f"""
-    <div style='margin-top:0.5rem; margin-bottom: 1.5rem;'>
+    <div class="custom-html-card" style='margin-top:0.5rem; margin-bottom: 1.5rem;'>
         <small style='color:#64748B;'>Soil pH Scale Meter</small>
         <div style='display:flex; justify-content:space-between; font-size:0.8rem; color:#94A3B8; margin-bottom:2px;'>
             <span>Acidic (3.5)</span>
@@ -605,7 +673,7 @@ def get_npk_breakdown(n, p, k):
     pct_p = p / total * 100
     pct_k = k / total * 100
     return f"""
-    <div style='margin-top:1rem; margin-bottom: 1.5rem;'>
+    <div class="custom-html-card" style='margin-top:1rem; margin-bottom: 1.5rem;'>
         <small style='color:#64748B;'>Nutrient Ratio (N : P : K)</small>
         <div style='display:flex; height:20px; border-radius:6px; overflow:hidden; margin-top:5px; box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);'>
             <div style='width:{pct_n}%; background-color:#3B82F6; color:white; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Nitrogen'>N ({pct_n:.0f}%)</div>
@@ -639,7 +707,7 @@ def get_weather_card(temp, humidity, current_rain, seasonal_temp, seasonal_humid
         bg_color = "linear-gradient(135deg, #0D9488 0%, #14B8A6 100%)"
         
     return f"""
-    <div style='background:{bg_color}; padding:1.5rem; border-radius:16px; color:white; box-shadow:0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-top:1rem;'>
+    <div class="custom-html-card" style='background:{bg_color}; padding:1.5rem; border-radius:16px; color:white !important; box-shadow:0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-top:1rem;'>
         <div style='display:flex; justify-content:space-between; align-items:center;'>
             <div>
                 <h4 style='margin:0; font-size:1.4rem; font-weight:bold; color:white;'>📍 Weather: {city.upper()}</h4>
@@ -701,7 +769,7 @@ def get_suitability_check(crop, n, p, k, ph, rainfall, crop_ideals):
         checks.append(f"<li>⚠️ <strong>Seasonal Rainfall</strong>: {rainfall:.0f}mm deviates from dynamic optimal {ideal_rain:.0f}mm</li>")
         
     return f"""
-    <div style='background-color:#F8FAFC; border: 1px solid #E2E8F0; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#1E293B !important;'>
+    <div class="custom-html-card" style='background-color:#F8FAFC; border: 1px solid #E2E8F0; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#1E293B !important;'>
         <h4 style='margin:0 0 0.5rem 0; color:#047857;'>🌱 Soil & Climate Suitability Checklist for {crop.title()}:</h4>
         <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#1E293B;'>
             {"".join(checks)}
@@ -730,7 +798,7 @@ def get_amendment_tips(n, p, k, ph, crop, crop_ideals):
         tips.append("<li>✅ Your soil indicators are perfectly balanced for this crop profile!</li>")
         
     return f"""
-    <div style='background-color:#FFFBEB; border: 1px solid #FEF3C7; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#92400E !important;'>
+    <div class="custom-html-card" style='background-color:#FFFBEB; border: 1px solid #FEF3C7; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#92400E !important;'>
         <h4 style='margin:0 0 0.5rem 0; color:#92400E;'>🛠️ Soil Amendment Suggestions:</h4>
         <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#92400E;'>
             {"".join(tips)}
@@ -762,7 +830,7 @@ def get_soil_health_score(n, p, k, ph, crop, crop_ideals):
         color = "#EF4444"
         
     return f"""
-    <div class="metric-card" style='border-left: 6px solid {color}; margin-top: 1rem;'>
+    <div class="custom-html-card metric-card" style='border-left: 6px solid {color}; margin-top: 1rem;'>
         <small style='color:#64748B;'>Soil Health Compatibility Score</small>
         <div style='display:flex; justify-content:space-between; align-items:center;'>
             <h2 style='margin:0; color:{color};'>{score:.0f}%</h2>
@@ -794,7 +862,7 @@ def get_fertilizer_calculator(n, p, k, crop, area, crop_ideals):
     total_cost = cost_urea + cost_ssp + cost_mop
     
     html = f"""
-    <div style='background-color:#F0F9FF; border: 1px solid #BAE6FD; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#0369A1 !important;'>
+    <div class="custom-html-card" style='background-color:#F0F9FF; border: 1px solid #BAE6FD; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#0369A1 !important;'>
         <h4 style='margin:0 0 0.5rem 0; color:#0369A1;'>🧮 Fertilizer Requirements & Cost Estimation ({area:.1f} Hectares):</h4>
         <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#0369A1;'>
             <li>🧪 <strong>Urea (N source)</strong>: {urea_bags:.1f} bags (~{tot_n:.0f} kg) | Est Cost: INR {cost_urea:,.0f}</li>
@@ -825,7 +893,7 @@ def get_crop_calendar(crop, season):
         duration = "Perennial / Multi-harvest"
         
     return f"""
-    <div style='background: #F1F5F9; border: 1px solid #CBD5E1; padding: 1rem; border-radius: 12px; margin-top: 1rem; color: #1E293B !important;'>
+    <div class="custom-html-card" style='background: #F1F5F9; border: 1px solid #CBD5E1; padding: 1rem; border-radius: 12px; margin-top: 1rem; color: #1E293B !important;'>
         <h4 style='margin: 0 0 0.5rem 0; color: #475569; font-weight: 600;'>📅 Crop Sowing & Harvesting Calendar</h4>
         <div style='display: flex; justify-content: space-between; font-size: 0.85rem;'>
             <div><strong>Sowing Timeline:</strong><br/><span style='color: #475569;'>{timeline}</span></div>
@@ -1165,7 +1233,7 @@ if predict_button:
                     risk_text_color = "#166534"
                     
                 st.markdown(f"""
-                <div style='background-color:{risk_bg}; border: 1px solid {risk_border}; padding:1.2rem; border-radius:12px; margin-top:0.75rem; color:{risk_text_color} !important;'>
+                <div class="custom-html-card" style='background-color:{risk_bg}; border: 1px solid {risk_border}; padding:1.2rem; border-radius:12px; margin-top:0.75rem; color:{risk_text_color} !important;'>
                     <div style='display:flex; justify-content:space-between; margin-bottom:0.75rem; font-size:0.85rem;'>
                         <div><strong>{t['risk_pessimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {pessimistic_profit:,.2f}</span></div>
                         <div style='text-align:right;'><strong>{t['risk_optimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {optimistic_profit:,.2f}</span></div>
