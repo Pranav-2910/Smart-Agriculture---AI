@@ -652,12 +652,12 @@ def get_ph_indicator(ph):
         pct = (ph - 3.5) / (9.9 - 3.5) * 100
     
     return f"""
-    <div class="custom-html-card" style='margin-top:0.5rem; margin-bottom: 1.5rem;'>
-        <small style='color:#64748B;'>Soil pH Scale Meter</small>
-        <div style='display:flex; justify-content:space-between; font-size:0.8rem; color:#94A3B8; margin-bottom:2px;'>
-            <span>Acidic (3.5)</span>
-            <span style='color:{color}; font-weight:bold;'>{ph:.1f} - {status}</span>
-            <span>Alkaline (9.9)</span>
+    <div class="custom-html-card" style='margin-top:0.5rem; margin-bottom: 1.5rem; color:#1E293B !important;'>
+        <small style='color:#64748B !important;'>Soil pH Scale Meter</small>
+        <div style='display:flex; justify-content:space-between; font-size:0.8rem; color:#94A3B8 !important; margin-bottom:2px;'>
+            <span style='color:#94A3B8 !important;'>Acidic (3.5)</span>
+            <span style='color:{color} !important; font-weight:bold;'>{ph:.1f} - {status}</span>
+            <span style='color:#94A3B8 !important;'>Alkaline (9.9)</span>
         </div>
         <div style='width:100%; background-color:#E2E8F0; height:8px; border-radius:4px; position:relative;'>
             <div style='position:absolute; left:{pct}%; width:12px; height:12px; border-radius:50%; background-color:{color}; top:-2px; transform:translateX(-50%); box-shadow:0 0 4px rgba(0,0,0,0.3);'></div>
@@ -673,17 +673,17 @@ def get_npk_breakdown(n, p, k):
     pct_p = p / total * 100
     pct_k = k / total * 100
     return f"""
-    <div class="custom-html-card" style='margin-top:1rem; margin-bottom: 1.5rem;'>
-        <small style='color:#64748B;'>Nutrient Ratio (N : P : K)</small>
+    <div class="custom-html-card" style='margin-top:1rem; margin-bottom: 1.5rem; color:#1E293B !important;'>
+        <small style='color:#64748B !important;'>Nutrient Ratio (N : P : K)</small>
         <div style='display:flex; height:20px; border-radius:6px; overflow:hidden; margin-top:5px; box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);'>
-            <div style='width:{pct_n}%; background-color:#3B82F6; color:white; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Nitrogen'>N ({pct_n:.0f}%)</div>
-            <div style='width:{pct_p}%; background-color:#F59E0B; color:white; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Phosphorus'>P ({pct_p:.0f}%)</div>
-            <div style='width:{pct_k}%; background-color:#8B5CF6; color:white; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Potassium'>K ({pct_k:.0f}%)</div>
+            <div style='width:{pct_n}%; background-color:#3B82F6; color:white !important; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Nitrogen'>N ({pct_n:.0f}%)</div>
+            <div style='width:{pct_p}%; background-color:#F59E0B; color:white !important; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Phosphorus'>P ({pct_p:.0f}%)</div>
+            <div style='width:{pct_k}%; background-color:#8B5CF6; color:white !important; font-size:0.75rem; text-align:center; line-height:20px; font-weight:bold;' title='Potassium'>K ({pct_k:.0f}%)</div>
         </div>
-        <div style='display:flex; justify-content:space-between; font-size:0.75rem; color:#94A3B8; margin-top:3px;'>
-            <span>N: {n}</span>
-            <span>P: {p}</span>
-            <span>K: {k}</span>
+        <div style='display:flex; justify-content:space-between; font-size:0.75rem; color:#94A3B8 !important; margin-top:3px;'>
+            <span style='color:#94A3B8 !important;'>N: {n}</span>
+            <span style='color:#94A3B8 !important;'>P: {p}</span>
+            <span style='color:#94A3B8 !important;'>K: {k}</span>
         </div>
     </div>
     """
@@ -740,38 +740,38 @@ def get_suitability_check(crop, n, p, k, ph, rainfall, crop_ideals):
     checks = []
     ideal_n = ideals['N']
     if 0.7 * ideal_n <= n <= 1.3 * ideal_n:
-        checks.append(f"<li>✅ <strong>Nitrogen (N)</strong>: {n} is optimal (Dynamic Ideal: {ideal_n:.1f})</li>")
+        checks.append(f"<li>✅ <strong style='color:#1E293B !important;'>Nitrogen (N)</strong>: {n} is optimal (Dynamic Ideal: {ideal_n:.1f})</li>")
     else:
-        checks.append(f"<li>⚠️ <strong>Nitrogen (N)</strong>: {n} deviates from optimal {ideal_n:.1f}</li>")
+        checks.append(f"<li>⚠️ <strong style='color:#1E293B !important;'>Nitrogen (N)</strong>: {n} deviates from optimal {ideal_n:.1f}</li>")
         
     ideal_p = ideals['P']
     if 0.7 * ideal_p <= p <= 1.3 * ideal_p:
-        checks.append(f"<li>✅ <strong>Phosphorus (P)</strong>: {p} is optimal (Dynamic Ideal: {ideal_p:.1f})</li>")
+        checks.append(f"<li>✅ <strong style='color:#1E293B !important;'>Phosphorus (P)</strong>: {p} is optimal (Dynamic Ideal: {ideal_p:.1f})</li>")
     else:
-        checks.append(f"<li>⚠️ <strong>Phosphorus (P)</strong>: {p} deviates from optimal {ideal_p:.1f}</li>")
+        checks.append(f"<li>⚠️ <strong style='color:#1E293B !important;'>Phosphorus (P)</strong>: {p} deviates from optimal {ideal_p:.1f}</li>")
         
     ideal_k = ideals['K']
     if 0.7 * ideal_k <= k <= 1.3 * ideal_k:
-        checks.append(f"<li>✅ <strong>Potassium (K)</strong>: {k} is optimal (Dynamic Ideal: {ideal_k:.1f})</li>")
+        checks.append(f"<li>✅ <strong style='color:#1E293B !important;'>Potassium (K)</strong>: {k} is optimal (Dynamic Ideal: {ideal_k:.1f})</li>")
     else:
-        checks.append(f"<li>⚠️ <strong>Potassium (K)</strong>: {k} deviates from optimal {ideal_k:.1f}</li>")
+        checks.append(f"<li>⚠️ <strong style='color:#1E293B !important;'>Potassium (K)</strong>: {k} deviates from optimal {ideal_k:.1f}</li>")
         
     ideal_ph = ideals['pH']
     if abs(ph - ideal_ph) <= 0.8:
-        checks.append(f"<li>✅ <strong>pH Level</strong>: {ph:.1f} is optimal (Dynamic Ideal: {ideal_ph:.1f})</li>")
+        checks.append(f"<li>✅ <strong style='color:#1E293B !important;'>pH Level</strong>: {ph:.1f} is optimal (Dynamic Ideal: {ideal_ph:.1f})</li>")
     else:
-        checks.append(f"<li>⚠️ <strong>pH Level</strong>: {ph:.1f} deviates from optimal {ideal_ph:.1f}</li>")
+        checks.append(f"<li>⚠️ <strong style='color:#1E293B !important;'>pH Level</strong>: {ph:.1f} deviates from optimal {ideal_ph:.1f}</li>")
         
     ideal_rain = ideals['total_rainfall_mm']
     if 0.6 * ideal_rain <= rainfall <= 1.4 * ideal_rain:
-        checks.append(f"<li>✅ <strong>Seasonal Rainfall</strong>: {rainfall:.0f}mm is optimal (Dynamic Ideal: {ideal_rain:.0f}mm)</li>")
+        checks.append(f"<li>✅ <strong style='color:#1E293B !important;'>Seasonal Rainfall</strong>: {rainfall:.0f}mm is optimal (Dynamic Ideal: {ideal_rain:.0f}mm)</li>")
     else:
-        checks.append(f"<li>⚠️ <strong>Seasonal Rainfall</strong>: {rainfall:.0f}mm deviates from dynamic optimal {ideal_rain:.0f}mm</li>")
+        checks.append(f"<li>⚠️ <strong style='color:#1E293B !important;'>Seasonal Rainfall</strong>: {rainfall:.0f}mm deviates from dynamic optimal {ideal_rain:.0f}mm</li>")
         
     return f"""
     <div class="custom-html-card" style='background-color:#F8FAFC; border: 1px solid #E2E8F0; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#1E293B !important;'>
-        <h4 style='margin:0 0 0.5rem 0; color:#047857;'>🌱 Soil & Climate Suitability Checklist for {crop.title()}:</h4>
-        <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#1E293B;'>
+        <h4 style='margin:0 0 0.5rem 0; color:#047857 !important;'>🌱 Soil & Climate Suitability Checklist for {crop.title()}:</h4>
+        <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#1E293B !important;'>
             {"".join(checks)}
         </ul>
     </div>
@@ -784,23 +784,23 @@ def get_amendment_tips(n, p, k, ph, crop, crop_ideals):
     
     tips = []
     if n < 0.7 * ideals['N']:
-        tips.append("<li>🧪 <strong>Low Nitrogen (N)</strong>: Plant leguminous cover crops or apply urea/compost.</li>")
+        tips.append("<li>🧪 <strong style='color:#92400E !important;'>Low Nitrogen (N)</strong>: Plant leguminous cover crops or apply urea/compost.</li>")
     if p < 0.7 * ideals['P']:
-        tips.append("<li>🧪 <strong>Low Phosphorus (P)</strong>: Blend superphosphate or bone meal into the soil.</li>")
+        tips.append("<li>🧪 <strong style='color:#92400E !important;'>Low Phosphorus (P)</strong>: Blend superphosphate or bone meal into the soil.</li>")
     if k < 0.7 * ideals['K']:
-        tips.append("<li>🧪 <strong>Low Potassium (K)</strong>: Scatter wood ash or apply muriate of potash.</li>")
+        tips.append("<li>🧪 <strong style='color:#92400E !important;'>Low Potassium (K)</strong>: Scatter wood ash or apply muriate of potash.</li>")
     if ph < ideals['pH'] - 0.8:
-        tips.append("<li>🧪 <strong>High Acidity</strong>: Add ground limestone to raise pH level.</li>")
+        tips.append("<li>🧪 <strong style='color:#92400E !important;'>High Acidity</strong>: Add ground limestone to raise pH level.</li>")
     elif ph > ideals['pH'] + 0.8:
-        tips.append("<li>🧪 <strong>High Alkalinity</strong>: Spread sulfur or peat moss to lower pH level.</li>")
+        tips.append("<li>🧪 <strong style='color:#92400E !important;'>High Alkalinity</strong>: Spread sulfur or peat moss to lower pH level.</li>")
         
     if not tips:
         tips.append("<li>✅ Your soil indicators are perfectly balanced for this crop profile!</li>")
         
     return f"""
     <div class="custom-html-card" style='background-color:#FFFBEB; border: 1px solid #FEF3C7; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#92400E !important;'>
-        <h4 style='margin:0 0 0.5rem 0; color:#92400E;'>🛠️ Soil Amendment Suggestions:</h4>
-        <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#92400E;'>
+        <h4 style='margin:0 0 0.5rem 0; color:#92400E !important;'>🛠️ Soil Amendment Suggestions:</h4>
+        <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#92400E !important;'>
             {"".join(tips)}
         </ul>
     </div>
@@ -830,11 +830,11 @@ def get_soil_health_score(n, p, k, ph, crop, crop_ideals):
         color = "#EF4444"
         
     return f"""
-    <div class="custom-html-card metric-card" style='border-left: 6px solid {color}; margin-top: 1rem;'>
-        <small style='color:#64748B;'>Soil Health Compatibility Score</small>
+    <div class="custom-html-card metric-card" style='border-left: 6px solid {color}; margin-top: 1rem; background-color:#F8FAFC !important;'>
+        <small style='color:#64748B !important;'>Soil Health Compatibility Score</small>
         <div style='display:flex; justify-content:space-between; align-items:center;'>
-            <h2 style='margin:0; color:{color};'>{score:.0f}%</h2>
-            <span style='background-color:{color}; color:white; padding:0.2rem 0.6rem; border-radius:12px; font-size:0.8rem; font-weight:bold;'>{badge}</span>
+            <h2 style='margin:0; color:{color} !important;'>{score:.0f}%</h2>
+            <span style='background-color:{color}; color:white !important; padding:0.2rem 0.6rem; border-radius:12px; font-size:0.8rem; font-weight:bold;'>{badge}</span>
         </div>
     </div>
     """
@@ -863,15 +863,15 @@ def get_fertilizer_calculator(n, p, k, crop, area, crop_ideals):
     
     html = f"""
     <div class="custom-html-card" style='background-color:#F0F9FF; border: 1px solid #BAE6FD; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#0369A1 !important;'>
-        <h4 style='margin:0 0 0.5rem 0; color:#0369A1;'>🧮 Fertilizer Requirements & Cost Estimation ({area:.1f} Hectares):</h4>
-        <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#0369A1;'>
-            <li>🧪 <strong>Urea (N source)</strong>: {urea_bags:.1f} bags (~{tot_n:.0f} kg) | Est Cost: INR {cost_urea:,.0f}</li>
-            <li>🧪 <strong>SSP (P source)</strong>: {ssp_bags:.1f} bags (~{tot_p:.0f} kg) | Est Cost: INR {cost_ssp:,.0f}</li>
-            <li>🧪 <strong>MOP (K source)</strong>: {mop_bags:.1f} bags (~{tot_k:.0f} kg) | Est Cost: INR {cost_mop:,.0f}</li>
+        <h4 style='margin:0 0 0.5rem 0; color:#0369A1 !important;'>🧮 Fertilizer Requirements & Cost Estimation ({area:.1f} Hectares):</h4>
+        <ul style='margin:0; padding-left:1.2rem; line-height:1.6; color:#0369A1 !important;'>
+            <li>🧪 <strong style='color:#0369A1 !important;'>Urea (N source)</strong>: {urea_bags:.1f} bags (~{tot_n:.0f} kg) | Est Cost: INR {cost_urea:,.0f}</li>
+            <li>🧪 <strong style='color:#0369A1 !important;'>SSP (P source)</strong>: {ssp_bags:.1f} bags (~{tot_p:.0f} kg) | Est Cost: INR {cost_ssp:,.0f}</li>
+            <li>🧪 <strong style='color:#0369A1 !important;'>MOP (K source)</strong>: {mop_bags:.1f} bags (~{tot_k:.0f} kg) | Est Cost: INR {cost_mop:,.0f}</li>
         </ul>
-        <div style='margin-top:0.75rem; border-top:1px dashed #BAE6FD; padding-top:0.5rem; font-weight:bold; display:flex; justify-content:space-between;'>
-            <span>Total Fertilizer Cost:</span>
-            <span>INR {total_cost:,.2f}</span>
+        <div style='margin-top:0.75rem; border-top:1px dashed #BAE6FD; padding-top:0.5rem; font-weight:bold; display:flex; justify-content:space-between; color:#0369A1 !important;'>
+            <span style='color:#0369A1 !important;'>Total Fertilizer Cost:</span>
+            <span style='color:#0369A1 !important;'>INR {total_cost:,.2f}</span>
         </div>
     </div>
     """
@@ -894,10 +894,10 @@ def get_crop_calendar(crop, season):
         
     return f"""
     <div class="custom-html-card" style='background: #F1F5F9; border: 1px solid #CBD5E1; padding: 1rem; border-radius: 12px; margin-top: 1rem; color: #1E293B !important;'>
-        <h4 style='margin: 0 0 0.5rem 0; color: #475569; font-weight: 600;'>📅 Crop Sowing & Harvesting Calendar</h4>
+        <h4 style='margin: 0 0 0.5rem 0; color: #475569 !important; font-weight: 600;'>📅 Crop Sowing & Harvesting Calendar</h4>
         <div style='display: flex; justify-content: space-between; font-size: 0.85rem;'>
-            <div><strong>Sowing Timeline:</strong><br/><span style='color: #475569;'>{timeline}</span></div>
-            <div style='text-align: right;'><strong>Crop Duration:</strong><br/><span style='color: #475569;'>{duration}</span></div>
+            <div><strong style='color:#1E293B !important;'>Sowing Timeline:</strong><br/><span style='color: #475569 !important;'>{timeline}</span></div>
+            <div style='text-align: right;'><strong style='color:#1E293B !important;'>Crop Duration:</strong><br/><span style='color: #475569 !important;'>{duration}</span></div>
         </div>
     </div>
     """
@@ -1174,7 +1174,50 @@ if predict_button:
                 st.markdown(get_suitability_check(recommended, n, p, k, ph, rainfall_input, crop_ideals), unsafe_allow_html=True)
                 st.markdown(get_amendment_tips(n, p, k, ph, recommended, crop_ideals), unsafe_allow_html=True)
                 st.markdown(fert_html, unsafe_allow_html=True)
+            
+            with col_right:
+                # Displaying live metrics alongside seasonal averages in the card...
+                display_city = city + " (Override)" if override_weather else city
+                st.markdown(get_weather_card(temp, humidity, current_rain, default_temp_avg, default_hum_avg, rainfall_input, display_city), unsafe_allow_html=True)
                 
+                st.markdown(f"<h4 style='margin:1.5rem 0 0.5rem 0; color:#047857 !important;'>{t['economics_header']} ({display_area:.1f} {area_label_str}):</h4>", unsafe_allow_html=True)
+                
+                profit_color = "#10B981" if net_profit >= 0 else "#EF4444"
+                profit_text = t['net_profit'] if net_profit >= 0 else t['net_loss']
+                
+                st.markdown(f"""
+                <div style='display:flex; flex-direction:column; gap:1rem;'>
+                    <div class="metric-card" style='background-color:#F8FAFC !important;'>
+                        <small style='color:#64748B !important;'>{t['pred_yield']}</small>
+                        <h2 style='margin: 0.25rem 0; color:#047857 !important;'>{yield_val_display:.2f} MT/{area_label_str[0].lower()}</h2>
+                        <span style='color:#94A3B8 !important; font-size:0.85rem;'>{yield_sub_text}</span>
+                    </div>
+                    <div class="metric-card" style='background-color:#F8FAFC !important;'>
+                        <small style='color:#64748B !important;'>{t['est_revenue']}</small>
+                        <h2 style='margin: 0.25rem 0; color:#047857 !important;'>INR {gross_revenue:,.2f}</h2>
+                        <span style='color:#94A3B8 !important; font-size:0.85rem;'>{price_sub_text}</span>
+                    </div>
+                    <div class="metric-card" style='background-color:#F8FAFC !important;'>
+                        <small style='color:#64748B !important;'>{t['total_cost']}</small>
+                        <h2 style='margin: 0.25rem 0; color:#475569 !important;'>INR {total_input_cost:,.2f}</h2>
+                        <span style='color:#94A3B8 !important; font-size:0.85rem;'>Fertilizers + Seeds/Machinery/Labor</span>
+                    </div>
+                    <div class="metric-card" style='border-left: 4px solid {profit_color}; background-color:#F8FAFC !important;'>
+                        <small style='color:#64748B !important;'>{profit_text}</small>
+                        <h2 style='margin: 0.25rem 0; color:{profit_color} !important;'>INR {net_profit:,.2f}</h2>
+                        <span style='color:#94A3B8 !important; font-size:0.85rem;'>Return on Investment</span>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            # --- Row 2: Calendar & Risk Analysis ---
+            st.markdown("---")
+            col_left2, col_right2 = st.columns([3, 2], gap="large")
+            
+            with col_left2:
+                st.markdown(get_crop_calendar(recommended, season_input), unsafe_allow_html=True)
+                
+            with col_right2:
                 # --- 3. Price Volatility & Market Risk Calculations ---
                 pessimistic_rev = gross_revenue * 0.80
                 optimistic_rev = gross_revenue * 1.20
@@ -1199,48 +1242,11 @@ if predict_button:
                 st.markdown(f"""
                 <div class="custom-html-card" style='background-color:{risk_bg}; border: 1px solid {risk_border}; padding:1.2rem; border-radius:12px; margin-top:0.75rem; color:{risk_text_color} !important;'>
                     <div style='display:flex; justify-content:space-between; margin-bottom:0.75rem; font-size:0.85rem;'>
-                        <div><strong>{t['risk_pessimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {pessimistic_profit:,.2f}</span></div>
-                        <div style='text-align:right;'><strong>{t['risk_optimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold;'>INR {optimistic_profit:,.2f}</span></div>
+                        <div><strong style='color:{risk_text_color} !important;'>{t['risk_pessimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold; color:{risk_text_color} !important;'>INR {pessimistic_profit:,.2f}</span></div>
+                        <div style='text-align:right;'><strong style='color:{risk_text_color} !important;'>{t['risk_optimistic']}</strong><br/><span style='font-size:1.1rem; font-weight:bold; color:{risk_text_color} !important;'>INR {optimistic_profit:,.2f}</span></div>
                     </div>
-                    <div style='border-top:1px dashed {risk_border}; padding-top:0.5rem; font-size:0.85rem; font-weight:500; color:{risk_text_color};'>
+                    <div style='border-top:1px dashed {risk_border}; padding-top:0.5rem; font-size:0.85rem; font-weight:500; color:{risk_text_color} !important;'>
                         {risk_alert}
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                st.markdown(get_crop_calendar(recommended, season_input), unsafe_allow_html=True)
-            
-            with col_right:
-                # Displaying live metrics alongside seasonal averages in the card...
-                display_city = city + " (Override)" if override_weather else city
-                st.markdown(get_weather_card(temp, humidity, current_rain, default_temp_avg, default_hum_avg, rainfall_input, display_city), unsafe_allow_html=True)
-                
-                st.markdown(f"<h4 style='margin:1.5rem 0 0.5rem 0; color:#047857;'>{t['economics_header']} ({display_area:.1f} {area_label_str}):</h4>", unsafe_allow_html=True)
-                
-                profit_color = "#10B981" if net_profit >= 0 else "#EF4444"
-                profit_text = t['net_profit'] if net_profit >= 0 else t['net_loss']
-                
-                st.markdown(f"""
-                <div style='display:flex; flex-direction:column; gap:1rem;'>
-                    <div class="metric-card">
-                        <small style='color:#64748B;'>{t['pred_yield']}</small>
-                        <h2 style='margin: 0.25rem 0; color:#047857;'>{yield_val_display:.2f} MT/{area_label_str[0].lower()}</h2>
-                        <span style='color:#94A3B8; font-size:0.85rem;'>{yield_sub_text}</span>
-                    </div>
-                    <div class="metric-card">
-                        <small style='color:#64748B;'>{t['est_revenue']}</small>
-                        <h2 style='margin: 0.25rem 0; color:#047857;'>INR {gross_revenue:,.2f}</h2>
-                        <span style='color:#94A3B8; font-size:0.85rem;'>{price_sub_text}</span>
-                    </div>
-                    <div class="metric-card">
-                        <small style='color:#64748B;'>{t['total_cost']}</small>
-                        <h2 style='margin: 0.25rem 0; color:#475569;'>INR {total_input_cost:,.2f}</h2>
-                        <span style='color:#94A3B8; font-size:0.85rem;'>Fertilizers + Seeds/Machinery/Labor</span>
-                    </div>
-                    <div class="metric-card" style='border-left: 4px solid {profit_color};'>
-                        <small style='color:#64748B;'>{profit_text}</small>
-                        <h2 style='margin: 0.25rem 0; color:{profit_color};'>INR {net_profit:,.2f}</h2>
-                        <span style='color:#94A3B8; font-size:0.85rem;'>Return on Investment</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
