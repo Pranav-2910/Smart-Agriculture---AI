@@ -377,22 +377,17 @@ def load_clf_artifacts():
 
 @st.cache_data
 def load_data_and_profiles():
-    """Merging dataframes and generating crop averages..."""
-    df_yield = pd.read_csv("crop_yield.csv")
-    df_soil = pd.read_csv("state_soil_data.csv")
-    df_weather = pd.read_csv("state_weather_data_1997_2020.csv")
-    
-    df_m = df_yield.merge(df_weather, on=['state', 'year'], how='left')
-    df_m = df_m.merge(df_soil, on='state', how='left')
-    
-    states = sorted(df_yield["state"].unique().tolist())
-    seasons = sorted(df_yield["season"].unique().tolist())
-    crops = sorted(df_yield["crop"].unique().tolist())
+    """Loading dynamic dataframes and generating crop averages..."""
+    df_m = pd.read_csv("crop_dataset.csv")
+    states = sorted(df_m["state"].unique().tolist())
+    seasons = sorted(df_m["season"].unique().tolist())
+    crops = sorted(df_m["crop"].unique().tolist())
     
     crop_yields = df_m.groupby("crop")["yield"].mean().to_dict()
     crop_ideals = df_m.groupby("crop")[["N", "P", "K", "pH", "total_rainfall_mm"]].mean().to_dict(orient="index")
     
     return states, seasons, crops, crop_yields, crop_ideals, df_m
+
 
 # 5. Defining feature engineering function...
 def engineer_features(df):
