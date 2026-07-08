@@ -71,12 +71,19 @@ st.markdown("""
         color: #065F46 !important;
     }
     
-    /* Ensuring high-contrast text inside custom HTML cards... */
-    .custom-html-card {
-        color: inherit !important;
+    /* Ensuring high-contrast black text inside custom HTML cards... */
+    .custom-html-card, .custom-html-card * {
+        color: #000000 !important;
     }
-    .custom-html-card *:not([style*="color"]) {
-        color: inherit !important;
+    
+    /* Ensuring high-contrast black text inside metric cards... */
+    .metric-card, .metric-card * {
+        color: #000000 !important;
+    }
+    
+    /* Weather card text must remain white on its dark gradient background... */
+    .custom-weather-card, .custom-weather-card * {
+        color: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -707,7 +714,7 @@ def get_weather_card(temp, humidity, current_rain, seasonal_temp, seasonal_humid
         bg_color = "linear-gradient(135deg, #0D9488 0%, #14B8A6 100%)"
         
     return f"""
-    <div class="custom-html-card" style='background:{bg_color}; padding:1.5rem; border-radius:16px; color:white !important; box-shadow:0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-top:1rem;'>
+    <div class="custom-weather-card" style='background:{bg_color}; padding:1.5rem; border-radius:16px; color:white !important; box-shadow:0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-top:1rem;'>
         <div style='display:flex; justify-content:space-between; align-items:center;'>
             <div>
                 <h4 style='margin:0; font-size:1.4rem; font-weight:bold; color:white;'>📍 Weather: {city.upper()}</h4>
