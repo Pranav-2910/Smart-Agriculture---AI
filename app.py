@@ -4,7 +4,6 @@ import numpy as np
 import pickle
 import requests
 import os
-from datetime import date, timedelta
 
 # 1. Setting up page configuration...
 st.set_page_config(
@@ -526,57 +525,10 @@ def get_weather(city):
                 elif "rain" in weather_main or "drizzle" in weather_main or "thunderstorm" in weather_main:
                     rainfall = 3.0 # Setting general rain fallback...
                     
-            lat = data.get('coord', {}).get('lat', 21.17)
-            lon = data.get('coord', {}).get('lon', 72.83)
-            return float(temp), float(humidity), float(rainfall), float(lat), float(lon)
+            return float(temp), float(humidity), float(rainfall)
     except:
         pass
-    return 25.6, 71.5, 0.0, 21.17, 72.83 # Fallback averages...
-
-def get_precise_rainfall(lat, lon, season):
-    """Fetches cumulative seasonal rainfall using Open-Meteo Forecast API's past_days..."""
-    today = date.today()
-    season_clean = season.lower().strip()
-    if "kharif" in season_clean:
-        start_month, start_day = 6, 1
-    elif "rabi" in season_clean:
-        start_month, start_day = 10, 1
-    elif "summer" in season_clean:
-        start_month, start_day = 2, 1
-    else:
-        start_month, start_day = 1, 1
-        
-    start_year = today.year
-    if (today.month, today.day) < (start_month, start_day):
-        start_year -= 1
-        
-    start_date = date(start_year, start_month, start_day)
-    delta = today - start_date
-    days_since_start = max(1, delta.days)
-    
-    past_days = min(92, days_since_start)
-    url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&daily=precipitation_sum&past_days={past_days}&forecast_days=0&timezone=auto"
-    try:
-        response = requests.get(url, timeout=5)
-        if response.status_code == 200:
-            data = response.json()
-            daily_precip = data.get("daily", {}).get("precipitation_sum", [])
-            total_rain = sum([p for p in daily_precip if p is not None])
-            
-            if days_since_start > 92:
-                # Extrapolate for the early season if it exceeds the 92-day limit
-                total_rain = (total_rain / 92) * days_since_start
-            return float(total_rain)
-    except:
-        pass
-    return None
-
-@st.cache_data(ttl=3600)
-def fetch_weather_and_precise_rain(city, season):
-    """Fetches live weather values and cumulative seasonal rainfall with caching..."""
-    temp, humidity, current_rain, lat, lon = get_weather(city)
-    precise_rain = get_precise_rainfall(lat, lon, season)
-    return temp, humidity, current_rain, precise_rain
+    return 25.6, 71.5, 0.0 # Fallback averages...
 
 def search_cities(query):
     """Searching matching cities using OpenWeatherMap Geocoding API..."""
@@ -999,19 +951,9 @@ city_season_data = df_full[(df_full['city'] == city) & (df_full['season'] == sea
 default_fert = float(city_season_data['fertilizer'].mean()) if not city_season_data.empty else 80000.0
 default_pest = float(city_season_data['pesticide'].mean()) if not city_season_data.empty else 300.0
 default_area = float(city_season_data['area'].mean()) if not city_season_data.empty else 1.0
-
-# Fetch precise real-time weather and cumulative rain from APIs
-api_temp, api_humidity, api_current_rain, precise_rain = fetch_weather_and_precise_rain(city, season_input)
-
-# Use precise cumulative rainfall from API as default if available; otherwise fall back to historical average
-if precise_rain is not None and precise_rain > 0.0:
-    default_rain_avg = precise_rain
-    st.sidebar.info(f"🌧️ Live Season Rainfall: {precise_rain:.1f} mm (via Open-Meteo)")
-else:
-    default_rain_avg = float(city_season_data['total_rainfall_mm'].mean()) if not city_season_data.empty else 1000.0
-
-default_temp_avg = api_temp if api_temp else (float(city_season_data['avg_temp_c'].mean()) if not city_season_data.empty else 25.6)
-default_hum_avg = api_humidity if api_humidity else (float(city_season_data['avg_humidity_percent'].mean()) if not city_season_data.empty else 70.0)
+default_rain_avg = float(city_season_data['total_rainfall_mm'].mean()) if not city_season_data.empty else 1000.0
+default_temp_avg = float(city_season_data['avg_temp_c'].mean()) if not city_season_data.empty else 25.6
+default_hum_avg = float(city_season_data['avg_humidity_percent'].mean()) if not city_season_data.empty else 70.0
 
 default_n = int(city_season_data['N'].mean()) if not city_season_data.empty else 50
 default_p = int(city_season_data['P'].mean()) if not city_season_data.empty else 40
@@ -1105,7 +1047,7 @@ if predict_button:
                 humidity = manual_humidity
                 current_rain = manual_current_rain
             else:
-                temp, humidity, current_rain, api_lat, api_lon = get_weather(city)
+                temp, humidity, current_rain = get_weather(city)
             
             # --- 1. Recommendation Prediction via Classifier ---
             row_clf = {
