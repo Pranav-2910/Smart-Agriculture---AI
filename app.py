@@ -7,7 +7,7 @@ import os
 
 # 1. Setting up page configuration...
 st.set_page_config(
-    page_title="Smart Crop Recommender (Regressor-Based Engine)",
+    page_title="Smart Crop Recommender",
     page_icon="🌱",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -85,13 +85,19 @@ st.markdown("""
     .custom-weather-card, .custom-weather-card * {
         color: #ffffff !important;
     }
+    
+    /* Sidebar custom cards must have white text for visibility on the dark sidebar background... */
+    [data-testid="stSidebar"] .custom-html-card,
+    [data-testid="stSidebar"] .custom-html-card * {
+        color: #FFFFFF !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # 2. Defining multilingual translation dictionary...
 TRANSLATIONS = {
     "English": {
-        "title": "Smart Crop Recommender (Regressor-Based Engine)",
+        "title": "Smart Crop Recommender",
         "subtitle": "Predicting optimal crop recommendations, expected yields, and cultivation economics based on real-time soil, location, and seasonal weather parameters.",
         "lang_select": "Select Language",
         "settings_location": "📍 Location & Crop Settings",
@@ -927,7 +933,12 @@ st.markdown(f"""
 
 # Sidebar: Measurement Units Selector
 st.sidebar.markdown(f"### {t['units_title']}")
-unit_system = st.sidebar.radio(t['units_title'], [t['unit_hectares'] + " & Kilograms", t['unit_acres'] + " & " + t['unit_bags']], index=0)
+unit_system = st.sidebar.radio(
+    t['units_title'],
+    [t['unit_hectares'] + " & Kilograms", t['unit_acres'] + " & " + t['unit_bags']],
+    index=0,
+    label_visibility="collapsed"
+)
 use_acres = (t['unit_acres'] in unit_system)
 
 # Sidebar: Location & Crop Settings
@@ -977,13 +988,13 @@ else:
     k_init = default_k
     ph_init = default_ph
 
-n = st.sidebar.slider(t['n_label'], 10, 120, n_init, key=f"n_slider_{city}_{season_input}_{soil_type}")
-p = st.sidebar.slider(t['p_label'], 5, 100, p_init, key=f"p_slider_{city}_{season_input}_{soil_type}")
-k = st.sidebar.slider(t['k_label'], 5, 100, k_init, key=f"k_slider_{city}_{season_input}_{soil_type}")
+n = st.sidebar.slider(t['n_label'], 10, 120, n_init, key=f"n_slider_{city}_{season_input}_{soil_type}", help="Nitrogen (N) in soil (recommended range: 10-120 mg/kg). Promotes leaf growth and overall crop vigor.")
+p = st.sidebar.slider(t['p_label'], 5, 100, p_init, key=f"p_slider_{city}_{season_input}_{soil_type}", help="Phosphorus (P) in soil (recommended range: 5-100 mg/kg). Crucial for root development, seeding, and flower maturity.")
+k = st.sidebar.slider(t['k_label'], 5, 100, k_init, key=f"k_slider_{city}_{season_input}_{soil_type}", help="Potassium (K) in soil (recommended range: 5-100 mg/kg). Regulates water absorption and strengthens disease resistance.")
 
 st.sidebar.markdown(get_npk_breakdown(n, p, k), unsafe_allow_html=True)
 
-ph = st.sidebar.slider(t['ph_label'], 3.5, 9.9, ph_init, step=0.1, key=f"ph_slider_{city}_{season_input}_{soil_type}")
+ph = st.sidebar.slider(t['ph_label'], 3.5, 9.9, ph_init, step=0.1, key=f"ph_slider_{city}_{season_input}_{soil_type}", help="Soil pH index measures acidity/alkalinity. 7.0 is neutral; most crops grow best between 6.0 and 7.5.")
 st.sidebar.markdown(get_ph_indicator(ph), unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
@@ -997,22 +1008,22 @@ if use_acres:
     fert_default_val = default_fert / 50.0
     pest_default_val = default_pest / 50.0
     
-    input_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_acres']})", 0.1, 25000000.0, area_default_val, step=0.5, key=f"area_{city}_{season_input}")
-    input_fert = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_bags']})", 0.0, 2000000.0, fert_default_val, step=10.0, key=f"fert_{city}_{season_input}")
-    input_pest = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_bags']})", 0.0, 200000.0, pest_default_val, step=1.0, key=f"pest_{city}_{season_input}")
+    input_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_acres']})", 0.1, 25000000.0, area_default_val, step=0.5, key=f"area_{city}_{season_input}", help="Total planting field area in Acres.")
+    input_fert = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_bags']})", 0.0, 2000000.0, fert_default_val, step=10.0, key=f"fert_{city}_{season_input}", help="Total fertilizer applied in standard 50 kg bags.")
+    input_pest = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_bags']})", 0.0, 200000.0, pest_default_val, step=1.0, key=f"pest_{city}_{season_input}", help="Total pesticide applied in standard 50 kg bags.")
     
     # Internal variables scaled back to Hectares & kg for ML compatibility...
     planting_area = input_area * 0.4047
     fertilizer_input = input_fert * 50.0
     pesticide_input = input_pest * 50.0
 else:
-    planting_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_hectares']})", 0.1, 10000000.0, default_area, step=0.5, key=f"area_{city}_{season_input}")
-    fertilizer_input = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_kg']})", 0.0, 100000000.0, default_fert, step=1000.0, key=f"fert_{city}_{season_input}")
-    pesticide_input = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_kg']})", 0.0, 10000000.0, default_pest, step=50.0, key=f"pest_{city}_{season_input}")
+    planting_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_hectares']})", 0.1, 10000000.0, default_area, step=0.5, key=f"area_{city}_{season_input}", help="Total planting field area in Hectares. 1 Hectare = 2.47 Acres.")
+    fertilizer_input = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_kg']})", 0.0, 100000000.0, default_fert, step=1000.0, key=f"fert_{city}_{season_input}", help="Total fertilizer quantity applied in kilograms (kg).")
+    pesticide_input = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_kg']})", 0.0, 10000000.0, default_pest, step=50.0, key=f"pest_{city}_{season_input}", help="Total pesticide quantity applied in kilograms (kg).")
 
 # Sidebar: Water Settings
 st.sidebar.markdown(f"### {t['settings_water']}")
-rainfall_input = st.sidebar.slider(t['rain_label'], 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{city}_{season_input}")
+rainfall_input = st.sidebar.slider(t['rain_label'], 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{city}_{season_input}", help="Total seasonal cumulative precipitation in millimeters (mm). 1 mm equals 1 Liter/m².")
 
 st.sidebar.markdown("---")
 
@@ -1020,9 +1031,9 @@ st.sidebar.markdown("---")
 st.sidebar.markdown(f"### {t['settings_override']}")
 override_weather = st.sidebar.checkbox(t['override_label'], value=False)
 if override_weather:
-    manual_temp = st.sidebar.slider(t['manual_temp'], 10.0, 50.0, float(default_temp_avg), step=0.5)
-    manual_humidity = st.sidebar.slider(t['manual_hum'], 10, 100, int(default_hum_avg))
-    manual_current_rain = st.sidebar.slider(t['manual_rain'], 0.0, 50.0, 0.0, step=0.5)
+    manual_temp = st.sidebar.slider(t['manual_temp'], 10.0, 50.0, float(default_temp_avg), step=0.5, help="Manual override value for relative ambient temperature in Celsius (°C).")
+    manual_humidity = st.sidebar.slider(t['manual_hum'], 10, 100, int(default_hum_avg), help="Manual override value for relative humidity percentage (%).")
+    manual_current_rain = st.sidebar.slider(t['manual_rain'], 0.0, 50.0, 0.0, step=0.5, help="Manual override value for immediate hourly precipitation rate in millimeters (mm).")
 else:
     manual_temp = 0.0
     manual_humidity = 0
@@ -1080,12 +1091,10 @@ if predict_button:
             recommended = le.inverse_transform([pred_clf_encoded])[0]
             
             # --- Agronomic Rule-Based Alignment (Post-Processing) ---
-            # Correcting local cultivation misalignments for real-world accuracy (e.g. B.Tech project precision)
+            # Flagging general seasonal crop cycle alerts for real-world precision
             has_override_msg = False
-            if city.lower() == "nandyal" and season_input.lower() == "kharif":
-                if recommended.lower() == "rice":
-                    recommended = "maize"
-                    has_override_msg = True
+            if season_input.lower() == "kharif" and recommended.lower() == "rice":
+                has_override_msg = True
             
             # --- 2. Yield & Economics Prediction via Regressor ---
             # Evaluating predicted yields for all candidate crops...
@@ -1331,3 +1340,28 @@ if predict_button:
                     html_list += f"<div style='background: {bg}; border: 1px solid {border}; padding: 0.5rem 0.75rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; color: #1E293B !important;'><div><strong style='color:#1E293B;'>{rank+1}. {c.capitalize()}</strong><br/><span style='color:#64748B; font-size:0.75rem;'>Yield: {alt_yield_disp:.2f} MT/{area_label_str[0].lower()}</span></div><div style='text-align: right;'><strong style='color:#059669;'>INR {r:,.0f}</strong><br/><span style='color:#94A3B8; font-size:0.7rem;'>INR {p:,}/MT</span></div></div>"
                 html_list += "</div>"
                 st.markdown(html_list, unsafe_allow_html=True)
+                
+            # --- Dynamic Leaderboard Analysis & Farmer Advisory ---
+            best_rev_crop = results[0][0].capitalize()
+            best_rev_val = results[0][2]
+            
+            results_by_yield = sorted(results, key=lambda x: x[1], reverse=True)
+            best_yield_crop = results_by_yield[0][0].capitalize()
+            best_yield_val = results_by_yield[0][1]
+            if use_acres:
+                best_yield_val_disp = best_yield_val * 0.4047
+                yield_unit = "MT/Acre"
+            else:
+                best_yield_val_disp = best_yield_val
+                yield_unit = "MT/Hectare"
+                
+            st.markdown(f"""
+            <div class="custom-html-card" style='background-color:#F0FDF4; border: 1px solid #DCFCE7; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#166534 !important;'>
+                <strong style='color:#166534 !important;'>📊 Alternative Crop Analysis & Farmer Advisory:</strong>
+                <ul style='margin:0.5rem 0 0 0; padding-left:1.2rem; line-height:1.6; color:#166534 !important;'>
+                    <li>💰 <strong style='color:#166534 !important;'>Maximum Revenue Option</strong>: Cultivating <strong>{best_rev_crop}</strong> is expected to yield the highest market return of <strong>INR {best_rev_val:,.2f}</strong> for your field size.</li>
+                    <li>🌾 <strong style='color:#166534 !important;'>Maximum Bulk Production</strong>: If your goal is high yield volume, <strong>{best_yield_crop}</strong> is the strongest performer, with an expected yield of <strong>{best_yield_val_disp:.2f} {yield_unit}</strong>.</li>
+                    <li>🚜 <strong style='color:#166534 !important;'>Risk Diversification</strong>: Farmers are advised to split their land (e.g., 70% primary crop, 30% alternative crop) to hedge against crop failure and market price drops.</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
