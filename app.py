@@ -124,7 +124,7 @@ TRANSLATIONS = {
         "manual_hum": "Current Humidity (%)",
         "manual_rain": "Current Rainfall (mm/hr)",
         "btn_recommend": "Recommend Optimal Crop",
-        "loading": "Fetching weather information and performing regression predictions...",
+        "loading": "Fetching weather information and performing predictions...",
         "err_city": "Please enter a valid city name.",
         "rec_header": "Optimal Crop recommendation",
         "calendar_header": "📅 Crop Sowing & Harvesting Calendar",
@@ -148,10 +148,39 @@ TRANSLATIONS = {
         "unit_acres": "Acres",
         "unit_kg": "kg",
         "unit_bags": "Bags (50kg)",
-        "units_title": "📏 Measurement Units"
+        "units_title": "📏 Measurement Units",
+        "alignment_header": "💡 Agronomic Calendar Alignment",
+        "alignment_msg": "The machine learning model recommended **Rice** based on your soil inputs. However, please note that in the Kharif season (July), grains/millets like **Maize** or **Jowar** are more commonly sown in this region. Rice is traditionally transplanted in October (Rabi).",
+        "comparison_title": "🔍 Soil Nutrient Comparison: Your Field vs. Ideal {crop}",
+        "your_soil_label": "Your Soil",
+        "ideal_soil_label": "Ideal Soil",
+        "advisory_title": "📢 Live Agronomic Advisory Alerts",
+        "advisory_pest_risk": "🦟 <strong>Pest & Disease Risk</strong>: High humidity and warm temperatures increase susceptibility to fungal blasts and stem borers.",
+        "advisory_water_risk": "🌊 <strong>Waterlogging Risk</strong>: Extreme cumulative rainfall. Ensure proper field drainage channels to prevent root rot.",
+        "advisory_acid_risk": "🧪 <strong>High Acid Blockade</strong>: Low pH limits phosphorus availability. Apply agricultural lime to neutralize.",
+        "advisory_alk_risk": "🧪 <strong>Alkaline Blockade</strong>: High pH reduces micronutrient absorption. Consider adding organic gypsum.",
+        "advisory_optimal": "✅ <strong>Optimal Growth Window</strong>: No major environmental stress alerts for this cycle.",
+        "leaderboard_advisory_title": "📊 Alternative Crop Analysis & Farmer Advisory",
+        "leaderboard_revenue_opt": "💰 <strong>Maximum Revenue Option</strong>: Cultivating <strong>{crop}</strong> is expected to yield the highest market return of <strong>INR {revenue:,.2f}</strong>.",
+        "leaderboard_yield_opt": "🌾 <strong>Maximum Bulk Production</strong>: If your goal is high yield volume, <strong>{crop}</strong> is the strongest performer, with an expected yield of <strong>{yield_val:.2f} {unit}</strong>.",
+        "leaderboard_diversification": "🚜 <strong>Risk Diversification</strong>: Farmers are advised to split their land (e.g., 70% primary crop, 30% alternative crop) to hedge against crop failure and market price drops.",
+        "help_n": "Nitrogen (N) in soil (recommended: 10-120 mg/kg). Promotes leaf growth and overall crop vigor.",
+        "help_p": "Phosphorus (P) in soil (recommended: 5-100 mg/kg). Crucial for root development, seeding, and flower maturity.",
+        "help_k": "Potassium (K) in soil (recommended: 5-100 mg/kg). Regulates water absorption and strengthens disease resistance.",
+        "help_ph": "Soil pH index measures acidity/alkalinity. 7.0 is neutral; most crops grow best between 6.0 and 7.5.",
+        "help_area_acres": "Total planting field area in Acres.",
+        "help_area_ha": "Total planting field area in Hectares. 1 Hectare = 2.47 Acres.",
+        "help_fert_bags": "Total fertilizer applied in standard 50 kg bags.",
+        "help_fert_kg": "Total fertilizer quantity applied in kilograms (kg).",
+        "help_pest_bags": "Total pesticide applied in standard 50 kg bags.",
+        "help_pest_kg": "Total pesticide quantity applied in kilograms (kg).",
+        "help_rain": "Total seasonal cumulative precipitation in millimeters (mm). 1 mm equals 1 Liter/m².",
+        "help_manual_temp": "Manual override value for relative ambient temperature in Celsius (°C).",
+        "help_manual_hum": "Manual override value for relative humidity percentage (%).",
+        "help_manual_rain": "Manual override value for immediate hourly precipitation rate in millimeters (mm)."
     },
     "Hindi": {
-        "title": "स्मार्ट फसल सलाहकार (रेग्रेशर-आधारित इंजन)",
+        "title": "स्मार्ट फसल सलाहकार",
         "subtitle": "मिट्टी, स्थान और मौसमी मौसम के मापदंडों के आधार पर फसल की सिफारिशों, उपज और खेती के अर्थशास्त्र की भविष्यवाणी करना।",
         "lang_select": "भाषा चुनें",
         "settings_location": "📍 स्थान और फसल सेटिंग्स",
@@ -202,10 +231,39 @@ TRANSLATIONS = {
         "unit_acres": "एकड़",
         "unit_kg": "किग्रा",
         "unit_bags": "बोरी (50 किग्रा)",
-        "units_title": "📏 मापन इकाइयां"
+        "units_title": "📏 मापन इकाइयां",
+        "alignment_header": "💡 कृषि कैलेंडर संरेखण",
+        "alignment_msg": "मशीन लर्निंग मॉडल ने आपकी मिट्टी के इनपुट के आधार पर **चावल (Rice)** की सिफारिश की है। हालांकि, कृपया ध्यान दें कि खरीफ सीजन (जुलाई) में इस क्षेत्र में **मक्का (Maize)** या **ज्वार (Jowar)** जैसे अनाज/बाजरा अधिक उगाए जाते हैं। चावल की रोपाई पारंपरिक रूप से अक्टूबर (रबी सीजन) में की जाती है।",
+        "comparison_title": "🔍 मिट्टी के पोषक तत्वों की तुलना: आपका खेत बनाम आदर्श {crop}",
+        "your_soil_label": "आपके खेत की मिट्टी",
+        "ideal_soil_label": "आदर्श मिट्टी",
+        "advisory_title": "📢 लाइव कृषि सलाहकार चेतावनियां",
+        "advisory_pest_risk": "🦟 <strong>कीट और रोग का जोखिम</strong>: उच्च आर्द्रता और गर्म तापमान फंगल ब्लास्ट और तना छेदक कीटों के प्रति संवेदनशीलता बढ़ाते हैं।",
+        "advisory_water_risk": "🌊 <strong>जलभराव का जोखिम</strong>: अत्यधिक संचयी वर्षा। जड़ सड़न को रोकने के लिए उचित जल निकासी सुनिश्चित करें।",
+        "advisory_acid_risk": "🧪 <strong>अम्लीय अवरोध</strong>: कम पीएच फॉस्फोरस की उपलब्धता को सीमित करता है। उदासीन करने के लिए कृषि चूना डालें।",
+        "advisory_alk_risk": "🧪 <strong>क्षारीय अवरोध</strong>: उच्च पीएच सूक्ष्म पोषक तत्वों के अवशोषण को कम करता है। जैविक जिप्सम मिलाने पर विचार करें।",
+        "advisory_optimal": "✅ <strong>इष्टतम विकास स्थिति</strong>: इस चक्र के लिए कोई बड़ा पर्यावरणीय तनाव अलर्ट नहीं है।",
+        "leaderboard_advisory_title": "📊 वैकल्पिक फसल विश्लेषण और किसान सलाह",
+        "leaderboard_revenue_opt": "💰 <strong>अधिकतम आय विकल्प</strong>: <strong>{crop}</strong> की खेती से <strong>INR {revenue:,.2f}</strong> का उच्चतम बाजार रिटर्न मिलने की उम्मीद है।",
+        "leaderboard_yield_opt": "🌾 <strong>अधिकतम कुल उत्पादन</strong>: यदि आपका लक्ष्य उच्च उपज मात्रा है, तो <strong>{crop}</strong> सबसे मजबूत प्रदर्शनकर्ता है, जिसकी अपेक्षित उपज <strong>{yield_val:.2f} {unit}</strong> है।",
+        "leaderboard_diversification": "🚜 <strong>जोखिम विविधीकरण</strong>: किसानों को सलाह दी जाती है कि वे फसल खराब होने और बाजार मूल्य में गिरावट के जोखिम से बचने के लिए अपनी जमीन को विभाजित करें (जैसे, 70% प्राथमिक फसल, 30% वैकल्पिक फसल)।",
+        "help_n": "मिट्टी में नाइट्रोजन (N) (सिफारिश: 10-120 mg/kg)। पत्तियों की वृद्धि और फसल की ताकत को बढ़ावा देता है।",
+        "help_p": "मिट्टी में फास्फोरस (P) (सिफारिश: 5-100 mg/kg)। जड़ों के विकास, बीजों के निर्माण और फूलों की परिपक्वता के लिए महत्वपूर्ण है।",
+        "help_k": "मिट्टी में पोटेशियम (K) (सिफारिश: 5-100 mg/kg)। पानी के अवशोषण को नियंत्रित करता है और रोग प्रतिरोधक क्षमता को बढ़ाता है।",
+        "help_ph": "मिट्टी पीएच स्तर अम्लता/क्षारीयता को मापता है। 7.0 तटस्थ है; अधिकांश फसलें 6.0 और 7.5 के बीच सबसे अच्छी बढ़ती हैं।",
+        "help_area_acres": "एकड़ में कुल खेती का क्षेत्र।",
+        "help_area_ha": "हेक्टेयर में कुल खेती का क्षेत्र। 1 हेक्टेयर = 2.47 एकड़।",
+        "help_fert_bags": "50 किलोग्राम की मानक बोरियों में कुल उपयोग की गई खाद।",
+        "help_fert_kg": "किलोग्राम (kg) में कुल उपयोग की गई खाद की मात्रा।",
+        "help_pest_bags": "50 किलोग्राम की मानक बोरियों में कुल उपयोग की गई कीटनाशक।",
+        "help_pest_kg": "किलोग्राम (kg) में कुल उपयोग की गई कीटनाशक की मात्रा।",
+        "help_rain": "मिलीमीटर (mm) में अपेक्षित मौसमी वर्षा। 1 मिमी = 1 लीटर प्रति वर्ग मीटर।",
+        "help_manual_temp": "सेल्सियस (°C) में तापमान को मैन्युअल रूप से बदलने के लिए।",
+        "help_manual_hum": "सापेक्ष आर्द्रता प्रतिशत (%) को मैन्युअल रूप से बदलने के लिए।",
+        "help_manual_rain": "वर्षा दर (मिमी/घंटा) को मैन्युअल रूप से बदलने के लिए।"
     },
     "Telugu": {
-        "title": "స్మార్ట్ పంట సలహాదారు (రెగ్రెషర్ ఆధారిత ఇంజిన్)",
+        "title": "స్మార్ట్ పంట సలహాదారు",
         "subtitle": "మట్టి, స్థానం మరియు వాతావరణ సమాచారం ఆధారంగా సరైన పంట సిఫార్సులు, దిగుబడులు మరియు వ్యవసాయ ఆదాయాన్ని అంచనా వేయడం.",
         "lang_select": "భాషను ఎంచుకోండి",
         "settings_location": "📍 ప్రాంతం & పంట సెట్టింగ్‌లు",
@@ -251,15 +309,44 @@ TRANSLATIONS = {
         "risk_optimistic": "ఎక్కువ ధర మార్కెట్ (+20% ధర)",
         "risk_high_alert": "⚠️ అధిక రిస్క్: మార్కెట్ ధర 20% తగ్గితే నికర నష్టం INR {loss:,.2f} వచ్చే అవకాశం ఉంది.",
         "risk_low_alert": "✅ తక్కువ రిస్క్: మార్కెట్ ధర 20% తగ్గినప్పటికీ, ఈ పంట ద్వారా INR {profit:,.2f} నికర లాభం పొందే అవకాశం ఉంది.",
-        "alternative_crops": "💡 ప్రత్యామ్నায় పంటల దిగుబడి లీడర్‌బోర్డ్",
+        "alternative_crops": "💡 ప్రత్యామ్నాయ పంటల దిగుబడి లీడర్‌బోర్డ్",
         "unit_hectares": "హెక్టార్లు",
         "unit_acres": "ఎకరాలు",
         "unit_kg": "కిలోలు",
         "unit_bags": "బస్తాలు (50 కేజీలు)",
-        "units_title": "📏 కొలత ప్రమాణాలు"
+        "units_title": "📏 కొలత ప్రమాణాలు",
+        "alignment_header": "💡 పంట కాలపట్టిక క్రమబద్ధీకరణ",
+        "alignment_msg": "మట్టి వివరాల ఆధారంగా మెషిన్ లెర్నింగ్ మోడల్ **వరి (Rice)** ని సిఫార్సు చేసింది. అయితే, ఖరీఫ్ సీజన్ (జూలై) లో ఈ ప్రాంతంలో **మొక్కజొన్న (Maize)** లేదా **జొన్నలు (Jowar)** వంటి తృణధాన్యాలు ఎక్కువగా పండిస్తారు. వరి సాధారణంగా అక్టోబర్ (రబీ సీజన్) లో నాటబడుతుంది.",
+        "comparison_title": "🔍 మట్టి పోషకాల పోలిక: మీ నేల నిష్పత్తి వర్సెస్ ఆదర్శవంతమైన {crop}",
+        "your_soil_label": "మీ మట్టి పోషకాలు",
+        "ideal_soil_label": "ఆదర్శవంతమైన పోషకాలు",
+        "advisory_title": "📢 ప్రత్యక్ష వ్యవసాయ సలహా హెచ్చరికలు",
+        "advisory_pest_risk": "🦟 <strong>తెగుళ్ళ ముప్పు</strong>: ఎక్కువ తేమ మరియు వేడి ఉష్ణోగ్రతల వల్ల అగ్గితెగులు మరియు కాండం తొలిచే పురుగుల ఆశించే ముప్పు పెరుగుతుంది.",
+        "advisory_water_risk": "🌊 <strong>నీరు నిలిచే ముప్పు</strong>: విపరీతమైన కాలానుగుణ వర్షపాతం. వేరు కుళ్లు తెగులు నివారణకు సరైన నీటి పారుదల కాలువలు ఏర్పాటు చేసుకోండి.",
+        "advisory_acid_risk": "🧪 <strong>అధిక ఆమ్లత్వం</strong>: తక్కువ pH వల్ల వేర్లకు భాస్వరం అందదు. ఆమ్లత్వాన్ని తగ్గించడానికి వ్యవసాయ సున్నం ఉపయోగించండి.",
+        "advisory_alk_risk": "🧪 <strong>క్షార గుణం</strong>: ఎక్కువ pH వల్ల సూక్ష్మ పోషకాలను నేల గ్రహించలేదు. జిప్సం ఉపయోగించాల్సిందిగా సలహా ఇవ్వడమైనది.",
+        "advisory_optimal": "✅ <strong>అనుకూల వాతావరణం</strong>: ఈ పంట కాలానికి ఎటువంటి వాతావరణ పరమైన ముప్పులు లేవు.",
+        "leaderboard_advisory_title": "📊 ప్రత్యామ్నాయ పంటల విశ్లేషణ & రైతు సలహా",
+        "leaderboard_revenue_opt": "💰 <strong>అధిక ఆదాయ పంట</strong>: <strong>{crop}</strong> సాగు చేయడం వల్ల <strong>INR {revenue:,.2f}</strong> అత్యధిక ఆదాయం వచ్చే అవకాశం ఉంది.",
+        "leaderboard_yield_opt": "🌾 <strong>అధిక దిగుబడి పంట</strong>: ఎక్కువ దిగుబడి పొందడమే మీ లక్ష్యమైతే, <strong>{crop}</strong> నాటడం ద్వారా <strong>{yield_val:.2f} {unit}</strong> అత్యుత్తమ దిగుబడి లభిస్తుంది.",
+        "leaderboard_diversification": "🚜 <strong>ఆదాయ భద్రత</strong>: పంట నష్టం మరియు మార్కెట్ ధరల పతనం నుండి రక్షణ పొందడానికి రైతులు తమ పొలాన్ని విభజించి సాగు చేయాలి (ఉదాహరణకు, 70% ప్రధాన పంట, 30% ప్రత్యామ్నాయ పంట).",
+        "help_n": "నెలలో నత్రజని (N) పరిమాణం (సిఫార్సు: 10-120 mg/kg). ఆకు పచ్చదనానికి మరియు పంట ఎదుగుదలకు తోడ్పడుతుంది.",
+        "help_p": "నేలలో భాస్వరం (P) పరిమాణం (సిఫార్సు: 5-100 mg/kg). వేర్లు బలంగా పెరగడానికి మరియు పూతకు చాలా ముఖ్యం.",
+        "help_k": "నేలలో పొటాషియం (K) పరిమాణం (సిఫార్సు: 5-100 mg/kg). తెగుళ్లను తట్టుకునే శక్తిని ఇస్తుంది.",
+        "help_ph": "నేల pH విలువ ఆమ్ల/క్షార గుణాన్ని సూచిస్తుంది. 7.0 తటస్థ విలువ; పంటలు 6.0 నుండి 7.5 pH మధ్య బాగా పెరుగుతాయి.",
+        "help_area_acres": "ఎకరాలలో సాగు వైశాల్యం.",
+        "help_area_ha": "హెక్టార్లలో సాగు వైశాల్యం. 1 హెక్టార్ = 2.47 ఎకరాలు.",
+        "help_fert_bags": "సాధారణ 50 కేజీల బస్తాల రూపంలో సాగుకు వాడే ఎరువులు.",
+        "help_fert_kg": "కిలోగ్రాముల (kg) రూపంలో సాగుకు వాడే ఎరువుల పరిమాణం.",
+        "help_pest_bags": "సాధారణ 50 కేజీల బస్తాల రూపంలో సాగుకు వాడే పురుగుమందులు.",
+        "help_pest_kg": "కిలోగ్రాముల (kg) రూపంలో సాగుకు వాడే పురుగుమందుల పరిమాణం.",
+        "help_rain": "మిల్లీమీటర్లలో (mm) ఆశించిన కాలానుగుణ వర్షపాతం. 1 mm = చదరపు మీటరుకు 1 లీటరు నీరు.",
+        "help_manual_temp": "సెల్సియస్ (°C) లో ఉష్ణోగ్రతను మార్చుటకు ఉపయోగపడుతుంది.",
+        "help_manual_hum": "తేమ శాతం (%) ని మార్చుటకు ఉపయోగపడుతుంది.",
+        "help_manual_rain": "ప్రస్తుత వర్షపాత తీవ్రతను (mm/hr) మార్చుటకు ఉపయోగపడుతుంది."
     },
     "Marathi": {
-        "title": "स्मार्ट पीक सल्लागार (रेग्रेशर-आधारित इंजिन)",
+        "title": "स्मार्ट पीक सल्लागार",
         "subtitle": "माती, हवामान आणि स्थानावर आधारित पीक शिफारसी, उत्पन्न आणि शेतीचे अर्थशास्त्र यांचे अंदाज लावणारे प्रणाली.",
         "lang_select": "भाषा निवडा",
         "settings_location": "📍 स्थान आणि पीक सेटिंग्ज",
@@ -310,10 +397,39 @@ TRANSLATIONS = {
         "unit_acres": "एकर",
         "unit_kg": "किग्रॅ",
         "unit_bags": "गोणी (50 किग्रॅ)",
-        "units_title": "📏 मोजमाप एकके"
+        "units_title": "📏 मोजमाप एकके",
+        "alignment_header": "💡 पीक पेरणी वेळापत्रक जुळवणी",
+        "alignment_msg": "मशीन लर्निंग मॉडेलने आपल्या मातीच्या घटकांनुसार **भात (Rice)** ची शिफारस केली आहे. तथापि, कृपया नोंद घ्या की खरीप हंगामात (जुलै) या भागात **मका (Maize)** किंवा **ज्वारी (Jowar)** यांसारखे धान्य पिके अधिक प्रमाणात घेतली जातात. भाताची लावणी प्रामुख्याने ऑक्टोबर (रब्बी हंगामात) केली जाते.",
+        "comparison_title": "🔍 माती पोषक घटक तुलना: आपले शेत वि. आदर्श {crop}",
+        "your_soil_label": "तुमची माती",
+        "ideal_soil_label": "आदर्श माती",
+        "advisory_title": "📢 थेट कृषी सल्लागार इशारे",
+        "advisory_pest_risk": "🦟 <strong>कीड आणि रोगाचा धोका</strong>: हवेतील जास्त आर्द्रता आणि उष्ण हवामानामुळे खोडकिडा व बुरशीजन्य रोगांचा प्रादुर्भाव वाढू शकतो.",
+        "advisory_water_risk": "🌊 <strong>पाणी साचण्याचा धोका</strong>: अतिवृष्टीमुळे पिकात पाणी साचू शकते. मुळे कुजण्यापासून वाचवण्यासाठी शेतात योग्य निचरा व्यवस्था करा.",
+        "advisory_acid_risk": "🧪 <strong>अम्लीय अडथळा</strong>: कमी पीएच मुळे पिकांना स्फुरद (फॉस्फरस) मिळत नाही. माती उदासीन करण्यासाठी कृषी चुना वापरा.",
+        "advisory_alk_risk": "🧪 <strong>क्षारीय अडथळा</strong>: जास्त पीएच मुळे सूक्ष्म अन्नद्रव्यांचे शोषण थांबते. शेतात सेंद्रिय जिप्सम वापरण्याचा सल्ला दिला जातो.",
+        "advisory_optimal": "✅ <strong>अनुकूल हवामान</strong>: सध्याच्या पीक चक्रासाठी कोणताही हवामान किंवा पर्यावरणाचा धोका नाही.",
+        "leaderboard_advisory_title": "📊 पर्यायी पीक विश्लेषण आणि शेतकरी सल्ला",
+        "leaderboard_revenue_opt": "💰 <strong>कमाल उत्पन्न पर्याय</strong>: <strong>{crop}</strong> ची लागवड केल्यास <strong>INR {revenue:,.2f}</strong> चा सर्वाधिक नफा मिळण्याची शक्यता आहे.",
+        "leaderboard_yield_opt": "🌾 <strong>कमाल घाऊक उत्पादन</strong>: जर आपले उद्दिष्ट जास्त उत्पादनाचे असेल, तर <strong>{crop}</strong> ची शिफारस केली जाते, ज्यामध्ये <strong>{yield_val:.2f} {unit}</strong> एवढे अपेक्षित उत्पन्न मिळू शकते.",
+        "leaderboard_diversification": "🚜 <strong>जोखीम नियंत्रण</strong>: पीक नुकसान आणि बाजार भावातील घसरणीपासून बचावासाठी शेतकऱ्यांनी जमिनीची विभागणी करून लागवड करावी (उदा. ७०% मुख्य पीक, ३०% पर्यायी पीक).",
+        "help_n": "मातीतील नायट्रोजन (N) चे प्रमाण (शिफारस: १०-१२० mg/kg). पानांच्या वाढीसाठी आणि पिकाच्या आरोग्यासाठी महत्त्वाचे.",
+        "help_p": "मातीतील फॉस्फरस (P) चे प्रमाण (शिफारस: ५-१०० mg/kg). मुळांच्या वाढीसाठी आणि फुलोऱ्यासाठी आवश्यक.",
+        "help_k": "मातीतील पोटॅशियम (K) चे प्रमाण (शिफारस: ५-१०० mg/kg). रोगप्रतिकारक शक्ती आणि पिकाचा दर्जा वाढवते.",
+        "help_ph": "मातीचा पीएच स्तर आम्लता किंवा क्षारता मोजतो. ७.० उदासीन आहे; बहुतेक पिके ६.० ते ७.५ पीएच दरम्यान चांगली वाढतात.",
+        "help_area_acres": "एकर मधील एकूण लागवड क्षेत्र.",
+        "help_area_ha": "हेक्टर मधील एकूण लागवड क्षेत्र. १ हेक्टर = २.४७ एकर.",
+        "help_fert_bags": "५० किलोच्या प्रमाणित गोणी स्वरूपात लागवडीचे खत.",
+        "help_fert_kg": "किलोग्रॅम (kg) स्वरूपात लागवडीचे खत.",
+        "help_pest_bags": "५० किलोच्या प्रमाणित गोणी स्वरूपात लागवडीचे कीटकनाशक.",
+        "help_pest_kg": "किलोग्रॅम (kg) स्वरूपात लागवडीचे कीटकनाशक.",
+        "help_rain": "हंगामी पाऊस मिलिमीटर (mm) मध्ये. १ मिमी = १ लिटर प्रति चौरस मीटर पाणी.",
+        "help_manual_temp": "तापमान सेल्सिअस (°C) मध्ये मॅन्युअली बदलण्यासाठी.",
+        "help_manual_hum": "हवेतील आर्द्रता टक्केवारी (%) मॅन्युअली बदलण्यासाठी.",
+        "help_manual_rain": "ताशी पाऊस (मीमी/तास) मॅन्युअली बदलण्यासाठी."
     },
     "Tamil": {
-        "title": "ஸ்மார்ட் பயிர் ஆலோசகர் (ரெக்ரெஷர் அடிப்படையிலான இயந்திரம்)",
+        "title": "ஸ்மார்ட் பயிர் ஆலோசகர்",
         "subtitle": "மண், இருப்பிடம் மற்றும் பருவகால வானிலை அளவுருக்களின் அடிப்படையில் உகந்த பயிர் பரிந்துரைகள், எதிர்பார்க்கப்படும் விளைச்சல் மற்றும் சாகுபடி பொருளாதாரத்தை கணித்தல்.",
         "lang_select": "மொழியைத் தேர்ந்தெடுக்கவும்",
         "settings_location": "📍 இருப்பிடம் & பயிர் அமைப்புகள்",
@@ -340,7 +456,7 @@ TRANSLATIONS = {
         "manual_hum": "தற்போதைய ஈரப்பதம் (%)",
         "manual_rain": "தற்போதைய மழைப்பொழிவு (மிமீ/மணி)",
         "btn_recommend": "உகந்த பயிரைப் பரிந்துரைக்கவும்",
-        "loading": "வானிலை தகவல்களைச் சேகரித்து சாகுபடி முடிவுகளைக் கணிக்கிறது...",
+        "loading": "வானிலை தகவல்களைச் சேகரித்து சாகுபடி முடிவுகளைக் கணிக்கும்...",
         "err_city": "தயவுசெய்து சரியான நகரப் பெயரை உள்ளிடவும்.",
         "rec_header": "சிறந்த பயிர் பரிந்துரை",
         "calendar_header": "📅 பயிர் விதைப்பு & அறுவடை காலண்டர்",
@@ -364,10 +480,39 @@ TRANSLATIONS = {
         "unit_acres": "ஏக்கர்",
         "unit_kg": "கிலோ",
         "unit_bags": "மூட்டை (50கிகி)",
-        "units_title": "📏 அளவீட்டு அலகுகள்"
+        "units_title": "📏 அளவீட்டு அலகுகள்",
+        "alignment_header": "💡 சாகுபடி கால அட்டவணை சீரமைப்பு",
+        "alignment_msg": "மண் குறியீடுகளின் அடிப்படையில் மெஷின் லேர்னிங் மாதிரி **நெல் (Rice)** சாகுபடியைப் பரிந்துரைத்துள்ளது. இருப்பினும், காரிஃப் பருவத்தில் (ஜூலை) இப்பகுதியில் **சோளம் (Maize)** அல்லது **கம்பு (Jowar)** போன்ற தானிய வகைகளே அதிகம் பயிரிடப்படுகின்றன. நெல் சாகுபடி பொதுவாக அக்டோபர் (ரபி பருவம்) மாதத்தில் நடவு செய்யப்படுகிறது.",
+        "comparison_title": "🔍 மண் சத்துக்கள் ஒப்பீடு: உங்கள் மண் vs சிறந்த {crop}",
+        "your_soil_label": "உங்கள் மண்",
+        "ideal_soil_label": "தேவைப்படும் அளவு",
+        "advisory_title": "📢 நேரடி விவசாய எச்சரிக்கைகள்",
+        "advisory_pest_risk": "🦟 <strong>பூச்சி மற்றும் நோய் அபாயம்</strong>: அதிக ஈரப்பதம் மற்றும் சூடான காலநிலை காரணமாக குலை நோய் மற்றும் தண்டு துளைப்பான் பூச்சிகளின் அபாயம் அதிகமாகும்.",
+        "advisory_water_risk": "🌊 <strong>வெள்ள அபாயம்</strong>: மிக அதிக மழைப்பொழிவு. வேரழுகல் நோயைத் தடுக்க சாகுபடி நிலத்தில் வடிகால் வசதியை ஏற்படுத்தவும்.",
+        "advisory_acid_risk": "🧪 <strong>அமிலத்தன்மை அபாயம்</strong>: குறைந்த pH அளவு பாஸ்பரஸ் சத்து கிடைப்பதைத் தடுக்கும். நடுநிலைப்படுத்த விவசாய சுண்ணாம்பு இடவும்.",
+        "advisory_alk_risk": "🧪 <strong>காரத்தன்மை அபாயம்</strong>: அதிக pH அளவு நுண்ணூட்டச் சத்துக்களை மண் உறிஞ்சுவதைத் தடுக்கும். ஜிப்சம் பயன்படுத்த பரிந்துரைக்கப்படுகிறது.",
+        "advisory_optimal": "✅ <strong>சாதகமான வளரும் சூழல்</strong>: இந்த சாகுபடி காலத்தில் சுற்றுச்சூழல் அபாயங்கள் எதுவும் இல்லை.",
+        "leaderboard_advisory_title": "📊 மாற்று பயிர் பகுப்பாய்வு & விவசாய ஆலோசனை",
+        "leaderboard_revenue_opt": "💰 <strong>அதிக வருவாய் தரும் பயிர்</strong>: <strong>{crop}</strong> சாகுபடி செய்வதன் மூலம் <strong>INR {revenue:,.2f}</strong> வரை அதிகபட்ச வருவாய் கிடைக்க வாய்ப்புள்ளது.",
+        "leaderboard_yield_opt": "🌾 <strong>அதிக விளைச்சல் தரும் பயிர்</strong>: உங்கள் இலக்கு அதிக விளைச்சல் எனில், <strong>{crop}</strong> பயிரிடுவதன் மூலம் <strong>{yield_val:.2f} {unit}</strong> வரை சிறந்த விளைச்சல் பெறலாம்.",
+        "leaderboard_diversification": "🚜 <strong>வருவாய் பாதுகாப்பு முறை</strong>: பயிர் சேதம் மற்றும் சந்தை விலை வீழ்ச்சியிலிருந்து தப்பிக்க, விவசாயிகள் தங்கள் நிலத்தைப் பகிர்ந்து பயிரிடுமாறு அறிவுறுத்தப்படுகிறார்கள் (எ.கா. 70% முதன்மை பயிர், 30% மாற்று பயிர்).",
+        "help_n": "மண்ணில் உள்ள தழைச்சத்து (N) அளவு (பரிந்துரை: 10-120 மி.கி/கிகி). பயிர் வளர்ச்சிக்கும் பச்சை நிறத்திற்கும் உதவும்.",
+        "help_p": "மண்ணில் உள்ள மணிச்சத்து (P) அளவு (பரிந்துரை: 5-100 மி.கி/கிகி). வேர் வளர்ச்சி மற்றும் பூ பூக்க மிகவும் அவசியம்.",
+        "help_k": "மண்ணில் உள்ள சாம்பல்சத்து (K) அளவு (பரிந்துரை: 5-100 மி.கி/கிகி). பயிர் நோய் எதிர்ப்பு சக்தியை அதிகரிக்கும்.",
+        "help_ph": "மண் pH அளவு அமில/காரத் தன்மையைக் குறிக்கும். 7.0 நடுநிலை; பயிர்கள் 6.0  முதல் 7.5 pH அளவில் நன்றாக வளரும்.",
+        "help_area_acres": "ஏக்கர் கணக்கில் சாகுபடி பரப்பு.",
+        "help_area_ha": "ஹெக்டேர் கணக்கில் சாகுபடி பரப்பு. 1 ஹெக்டேர் = 2.47 ஏக்கர்.",
+        "help_fert_bags": "50 கிலோ எடை கொண்ட மூட்டைகளில் உரங்களின் அளவு.",
+        "help_fert_kg": "கிலோகிராம் (kg) கணக்கில் உரங்களின் அளவு.",
+        "help_pest_bags": "50 கிலோ எடை கொண்ட மூட்டைகளில் பூச்சிக்கொல்லிகளின் அளவு.",
+        "help_pest_kg": "கிலோகிராம் (kg) கணக்கில் பூச்சிக்கொல்லிகளின் அளவு.",
+        "help_rain": "மில்லிமீட்டரில் (mm) பருவகால மழை அளவு. 1 மிமீ = ஒரு சதுர மீட்டருக்கு 1 லிட்டர் நீர்.",
+        "help_manual_temp": "வெப்பநிலையை செல்சியஸ் (°C) அளவில் கைமுறையாக மாற்ற.",
+        "help_manual_hum": "ஈரப்பதத்தை சதவீத (%) அளவில் கைமுறையாக மாற்ற.",
+        "help_manual_rain": "மழைப்பொழிவை (மிமீ/மணி) கைமுறையாக மாற்ற."
     },
     "Bengali": {
-        "title": "স্মার্ট ফসল উপদেষ্টা (রেগ্রেশর-ভিত্তিক ইঞ্জিন)",
+        "title": "স্মার্ট ফসল উপদেষ্টা",
         "subtitle": "মাটি, স্থান এবং ঋতুভিত্তিক আবহাওয়ার তথ্যের ভিত্তিতে ফসলের সুপারিশ, ফলন এবং চাষের অর্থনৈতিক হিসাব অনুমান করা।",
         "lang_select": "ভাষা নির্বাচন করুন",
         "settings_location": "📍 স্থান এবং ফসল সেটিংস",
@@ -388,13 +533,13 @@ TRANSLATIONS = {
         "pest_label": "পরিকল্পিত কীটনাশক",
         "settings_water": "💧 জলের প্রোফাইল",
         "rain_label": "প্রত্যাশিত মরসুমী বৃষ্টিপাত (মিমি)",
-        "settings_override": "🔧 আবহাওয়া এপিআই ওভাররাইড",
+        "settings_override": "🔧 আবহাওয়া এপিআই ওভাররাইड করুন",
         "override_label": "লাইভ আবহাওয়া ওভাররাইড করুন",
         "manual_temp": "বর্তমান তাপমাত্রা (°C)",
         "manual_hum": "বর্তমান আর্দ্রতা (%)",
         "manual_rain": "বর্তমান বৃষ্টিপাত (মিমি/ঘণ্টা)",
         "btn_recommend": "উপযুক্ত ফসলের সুপারিশ পান",
-        "loading": "আবহাওয়ার তথ্য সংগ্রহ করা হচ্ছে এবং ফলন গণনা করা হচ্ছে...",
+        "loading": "আবহাওয়ার তথ্য সংগ্রহ করা হচ্ছে এবং ফলন গণনা করা হচ্ছে...",
         "err_city": "অনুগ্রহ করে একটি সঠিক শহরের নাম লিখুন।",
         "rec_header": "সর্বোত্তম প্রস্তাবিত ফসল",
         "calendar_header": "📅 ফসল বপন এবং সংগ্রহের ক্যালেন্ডার",
@@ -418,7 +563,36 @@ TRANSLATIONS = {
         "unit_acres": "একর",
         "unit_kg": "কেজি",
         "unit_bags": "বস্তা (৫০ কেজি)",
-        "units_title": "📏 পরিমাপের একক"
+        "units_title": "📏 পরিমাপের একক",
+        "alignment_header": "💡 ফসল বপন চক্র সমন্বয়",
+        "alignment_msg": "মাটির উপাদানের উপর ভিত্তি করে মেশিন লার্নিং মডেল **ধান (Rice)** চাষের সুপারিশ করেছে। তবে, মনে রাখবেন যে খরিফ মরসুমে (জুলাই) এই অঞ্চলে **ভুট্টা (Maize)** বা **জোয়ার (Jowar)** জাতীয় শস্য বেশি চাষ হয়। ধান সাধারণত অক্টোবর (রবি মরসুমে) রোপণ করা হয়।",
+        "comparison_title": "🔍 মাটির পুষ্টি উপাদানের তুলনা: আপনার জমি বনাম আদেশ {crop}",
+        "your_soil_label": "আপনার জমির মাটি",
+        "ideal_soil_label": "আদর্শ মাটি",
+        "advisory_title": "📢 লাইভ কৃষি সংক্রান্ত সতর্কতা",
+        "advisory_pest_risk": "🦟 <strong>পোকামাকড় ও রোগবালাইয়ের ঝুঁকি</strong>: উচ্চ আর্দ্রতা और উষ্ণ আবহাওয়া ব্লাস্ট রোগ ও মাজরা পোকার আক্রমণ বাড়িয়ে দেয়।",
+        "advisory_water_risk": "🌊 <strong>জলবদ্ধতার ঝুঁকি</strong>: অতিরিক্ত মরসুমী বৃষ্টিপাত। মূল পচা রোগ প্রতিরোধ করতে জমিতে সঠিক নিষ্কাশন ব্যবস্থা রাখুন।",
+        "advisory_acid_risk": "🧪 <strong>অম্লীয় মাটির প্রভাব</strong>: কম পিএইচ ফসফরাস গ্রহণ সীমিত করে। অম্লতা কমাতে জমিতে চুন প্রয়োগ করুন।",
+        "advisory_alk_risk": "🧪 <strong>ক্ষারীয় মাটির প্রভাব</strong>: উচ্চ পিএইচ মাইক্রোনিউট্রিয়েন্ট শোষণে বাধা দেয়। জমিতে জিপসাম প্রয়োগ করার পরামর্শ দেওয়া হচ্ছে।",
+        "advisory_optimal": "✅ <strong>অনুকূল আবহাওয়া</strong>: এই ফসল চক্রের জন্য বড় কোনো পরিবেশগত ঝুঁকি নেই।",
+        "leaderboard_advisory_title": "📊 বিকল্প ফসল বিশ্লেষণ এবং চাষী পরামর্শ",
+        "leaderboard_revenue_opt": "💰 <strong>সর্বোচ্চ আয়ের ফসল</strong>: <strong>{crop}</strong> চাষ করলে সর্বোচ্চ <strong>INR {revenue:,.2f}</strong> আয় করা সম্ভব।",
+        "leaderboard_yield_opt": "🌾 <strong>সর্বোচ্চ ফলন</strong>: আপনার লক্ষ্য যদি বেশি ফলন হয়, তবে <strong>{crop}</strong> চাষ করুন, যা থেকে প্রত্যাশিত ফলন <strong>{yield_val:.2f} {unit}</strong> পাওয়া যাবে।",
+        "leaderboard_diversification": "🚜 <strong>ঝুঁকি হ্রাসকরণ</strong>: ফসল নষ্ট হওয়া এবং বাজার দর কমে যাওয়ার ঝুঁকি এড়াতে কৃষকদের জমি ভাগ করে চাষ করার পরামর্শ দেওয়া হচ্ছে (যেমন, ৭০% প্রধান ফসল, ৩০% বিকল্প ফসল)।",
+        "help_n": "মাটিতে নাইট্রোজেন (N) (প্রস্তাবিত: ১০-১২০ মিলিগ্রাম/কেজি)। পাতার বৃদ্ধি এবং ফসলের তেজ বাড়াতে সাহায্য করে।",
+        "help_p": "মাটিতে ফসফরাস (P) (প্রস্তাবিত: ৫-১০০ মিলিগ্রাম/কেজি)। শিকড়ের বিকাশ और ফুল ফোটার জন্য প্রয়োজনীয়।",
+        "help_k": "মাটিতে পটাশিয়াম (K) (প্রস্তাবিত: ৫-১০০ মিলিগ্রাম/কেজি)। রোগ প্রতিরোধ ক্ষমতা বাড়ায়।",
+        "help_ph": "মাটির পিএইচ মাত্রা অম্লতা/ক্ষারত্ব নির্দেশ করে। ৭.০ নিরপেক্ষ; অধিকাংশ ফসল ६.० থেকে ৭.৫ পিএইচ-এ ভালো হয়।",
+        "help_area_acres": "একর চাষের মোট এলাকা।",
+        "help_area_ha": "হেক্টর চাষের মোট এলাকা। ১ হেক্টর = ২.৪৭ একর।",
+        "help_fert_bags": "৫০ কেজি বস্তা হিসেবে পরিকল্পিত সারের মোট পরিমাণ।",
+        "help_fert_kg": "কেজি (kg) হিসেবে পরিকল্পিত সারের মোট পরিমাণ।",
+        "help_pest_bags": "৫০ কেজি বস্তา হিসেবে পরিকল্পিত কীটনাশকের মোট পরিমাণ।",
+        "help_pest_kg": "কেজি (kg) হিসেবে পরিকল্পিত কীটনাশকের মোট পরিমাণ।",
+        "help_rain": "মিমি (mm) হিসেবে প্রত্যাশিত বৃষ্টিপাত। ১ মিমি = প্রতি বর্গমিটারে ১ লিটার জল।",
+        "help_manual_temp": "সেলসিয়াস (°C) হিসেবে তাপমাত্রা ম্যানুয়ালি সেট করার জন্য।",
+        "help_manual_hum": "আর্দ্রতার শতকরা হার (%) ম্যানুয়ালি সেট করার लिए।",
+        "help_manual_rain": "ঘণ্টায় বৃষ্টিপাত (মিমি) ম্যানুয়ালি সেট করার জন্য।"
     }
 }
 
@@ -988,13 +1162,13 @@ else:
     k_init = default_k
     ph_init = default_ph
 
-n = st.sidebar.slider(t['n_label'], 10, 120, n_init, key=f"n_slider_{city}_{season_input}_{soil_type}", help="Nitrogen (N) in soil (recommended range: 10-120 mg/kg). Promotes leaf growth and overall crop vigor.")
-p = st.sidebar.slider(t['p_label'], 5, 100, p_init, key=f"p_slider_{city}_{season_input}_{soil_type}", help="Phosphorus (P) in soil (recommended range: 5-100 mg/kg). Crucial for root development, seeding, and flower maturity.")
-k = st.sidebar.slider(t['k_label'], 5, 100, k_init, key=f"k_slider_{city}_{season_input}_{soil_type}", help="Potassium (K) in soil (recommended range: 5-100 mg/kg). Regulates water absorption and strengthens disease resistance.")
+n = st.sidebar.slider(t['n_label'], 10, 120, n_init, key=f"n_slider_{city}_{season_input}_{soil_type}", help=t['help_n'])
+p = st.sidebar.slider(t['p_label'], 5, 100, p_init, key=f"p_slider_{city}_{season_input}_{soil_type}", help=t['help_p'])
+k = st.sidebar.slider(t['k_label'], 5, 100, k_init, key=f"k_slider_{city}_{season_input}_{soil_type}", help=t['help_k'])
 
 st.sidebar.markdown(get_npk_breakdown(n, p, k), unsafe_allow_html=True)
 
-ph = st.sidebar.slider(t['ph_label'], 3.5, 9.9, ph_init, step=0.1, key=f"ph_slider_{city}_{season_input}_{soil_type}", help="Soil pH index measures acidity/alkalinity. 7.0 is neutral; most crops grow best between 6.0 and 7.5.")
+ph = st.sidebar.slider(t['ph_label'], 3.5, 9.9, ph_init, step=0.1, key=f"ph_slider_{city}_{season_input}_{soil_type}", help=t['help_ph'])
 st.sidebar.markdown(get_ph_indicator(ph), unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
@@ -1008,22 +1182,22 @@ if use_acres:
     fert_default_val = default_fert / 50.0
     pest_default_val = default_pest / 50.0
     
-    input_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_acres']})", 0.1, 25000000.0, area_default_val, step=0.5, key=f"area_{city}_{season_input}", help="Total planting field area in Acres.")
-    input_fert = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_bags']})", 0.0, 2000000.0, fert_default_val, step=10.0, key=f"fert_{city}_{season_input}", help="Total fertilizer applied in standard 50 kg bags.")
-    input_pest = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_bags']})", 0.0, 200000.0, pest_default_val, step=1.0, key=f"pest_{city}_{season_input}", help="Total pesticide applied in standard 50 kg bags.")
+    input_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_acres']})", 0.1, 25000000.0, area_default_val, step=0.5, key=f"area_{city}_{season_input}", help=t['help_area_acres'])
+    input_fert = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_bags']})", 0.0, 2000000.0, fert_default_val, step=10.0, key=f"fert_{city}_{season_input}", help=t['help_fert_bags'])
+    input_pest = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_bags']})", 0.0, 200000.0, pest_default_val, step=1.0, key=f"pest_{city}_{season_input}", help=t['help_pest_bags'])
     
     # Internal variables scaled back to Hectares & kg for ML compatibility...
     planting_area = input_area * 0.4047
     fertilizer_input = input_fert * 50.0
     pesticide_input = input_pest * 50.0
 else:
-    planting_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_hectares']})", 0.1, 10000000.0, default_area, step=0.5, key=f"area_{city}_{season_input}", help="Total planting field area in Hectares. 1 Hectare = 2.47 Acres.")
-    fertilizer_input = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_kg']})", 0.0, 100000000.0, default_fert, step=1000.0, key=f"fert_{city}_{season_input}", help="Total fertilizer quantity applied in kilograms (kg).")
-    pesticide_input = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_kg']})", 0.0, 10000000.0, default_pest, step=50.0, key=f"pest_{city}_{season_input}", help="Total pesticide quantity applied in kilograms (kg).")
+    planting_area = st.sidebar.number_input(f"{t['area_label']} ({t['unit_hectares']})", 0.1, 10000000.0, default_area, step=0.5, key=f"area_{city}_{season_input}", help=t['help_area_ha'])
+    fertilizer_input = st.sidebar.number_input(f"{t['fert_label']} ({t['unit_kg']})", 0.0, 100000000.0, default_fert, step=1000.0, key=f"fert_{city}_{season_input}", help=t['help_fert_kg'])
+    pesticide_input = st.sidebar.number_input(f"{t['pest_label']} ({t['unit_kg']})", 0.0, 10000000.0, default_pest, step=50.0, key=f"pest_{city}_{season_input}", help=t['help_pest_kg'])
 
 # Sidebar: Water Settings
 st.sidebar.markdown(f"### {t['settings_water']}")
-rainfall_input = st.sidebar.slider(t['rain_label'], 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{city}_{season_input}", help="Total seasonal cumulative precipitation in millimeters (mm). 1 mm equals 1 Liter/m².")
+rainfall_input = st.sidebar.slider(t['rain_label'], 100, 3500, int(default_rain_avg), step=50, key=f"rain_slider_{city}_{season_input}", help=t['help_rain'])
 
 st.sidebar.markdown("---")
 
@@ -1031,9 +1205,9 @@ st.sidebar.markdown("---")
 st.sidebar.markdown(f"### {t['settings_override']}")
 override_weather = st.sidebar.checkbox(t['override_label'], value=False)
 if override_weather:
-    manual_temp = st.sidebar.slider(t['manual_temp'], 10.0, 50.0, float(default_temp_avg), step=0.5, help="Manual override value for relative ambient temperature in Celsius (°C).")
-    manual_humidity = st.sidebar.slider(t['manual_hum'], 10, 100, int(default_hum_avg), help="Manual override value for relative humidity percentage (%).")
-    manual_current_rain = st.sidebar.slider(t['manual_rain'], 0.0, 50.0, 0.0, step=0.5, help="Manual override value for immediate hourly precipitation rate in millimeters (mm).")
+    manual_temp = st.sidebar.slider(t['manual_temp'], 10.0, 50.0, float(default_temp_avg), step=0.5, help=t['help_manual_temp'])
+    manual_humidity = st.sidebar.slider(t['manual_hum'], 10, 100, int(default_hum_avg), help=t['help_manual_hum'])
+    manual_current_rain = st.sidebar.slider(t['manual_rain'], 0.0, 50.0, 0.0, step=0.5, help=t['help_manual_rain'])
 else:
     manual_temp = 0.0
     manual_humidity = 0
@@ -1192,7 +1366,7 @@ if predict_button:
                 """, unsafe_allow_html=True)
                 
                 if has_override_msg:
-                    st.info("💡 **Agronomic Calendar Alignment**: The machine learning model statistically recommended **Rice** based on historical data averages, but has been adjusted to **Maize** to align with traditional crop calendars in Nandyal, where Rice is traditionally sown in October (Rabi) and grains are sown in Kharif (July).")
+                    st.info(f"{t['alignment_header']}: {t['alignment_msg']}")
                 
                 # Dynamic Soil Health compatibility score...
                 st.markdown(get_soil_health_score(n, p, k, ph, recommended, crop_ideals), unsafe_allow_html=True)
@@ -1283,29 +1457,29 @@ if predict_button:
             col_left3, col_right3 = st.columns([3, 2], gap="large")
             
             with col_left3:
-                st.markdown(f"<h4 style='color:#047857 !important;'>🔍 Soil Nutrient Comparison: Your Field vs. Ideal {recommended.title()}</h4>", unsafe_allow_html=True)
+                st.markdown(f"<h4 style='color:#047857 !important;'>{t['comparison_title'].format(crop=recommended.title())}</h4>", unsafe_allow_html=True)
                 ideals = crop_ideals.get(recommended)
                 if ideals:
                     df_compare = pd.DataFrame({
-                        'Your Soil': [n, p, k],
-                        'Ideal Soil': [ideals['N'], ideals['P'], ideals['K']]
-                    }, index=['Nitrogen (N)', 'Phosphorus (P)', 'Potassium (K)'])
+                        t['your_soil_label']: [n, p, k],
+                        t['ideal_soil_label']: [ideals['N'], ideals['P'], ideals['K']]
+                    }, index=['N', 'P', 'K'])
                     st.bar_chart(df_compare, height=250)
                     
             with col_right3:
-                st.markdown(f"<h4 style='color:#047857 !important;'>📢 Live Agronomic Advisory Alerts</h4>", unsafe_allow_html=True)
+                st.markdown(f"<h4 style='color:#047857 !important;'>{t['advisory_title']}</h4>", unsafe_allow_html=True)
                 alerts = []
                 if humidity > 80 and temp > 25:
-                    alerts.append("<li>🦟 <strong style='color:#92400E !important;'>Pest & Disease Risk</strong>: High humidity and warm temperatures increase susceptibility to fungal blasts and stem borers.</li>")
+                    alerts.append(f"<li>{t['advisory_pest_risk']}</li>")
                 if rainfall_input > 1500:
-                    alerts.append("<li>🌊 <strong style='color:#92400E !important;'>Waterlogging Risk</strong>: Extreme cumulative rainfall. Ensure proper field drainage channels to prevent root rot.</li>")
+                    alerts.append(f"<li>{t['advisory_water_risk']}</li>")
                 if ph < 5.5:
-                    alerts.append("<li>🧪 <strong style='color:#92400E !important;'>High Acid Blockade</strong>: Low pH limits phosphorus availability. Apply agricultural lime to neutralize.</li>")
+                    alerts.append(f"<li>{t['advisory_acid_risk']}</li>")
                 elif ph > 8.0:
-                    alerts.append("<li>🧪 <strong style='color:#92400E !important;'>Alkaline Blockade</strong>: High pH reduces micronutrient absorption. Consider adding organic gypsum.</li>")
+                    alerts.append(f"<li>{t['advisory_alk_risk']}</li>")
                 
                 if not alerts:
-                    alerts.append("<li>✅ <strong style='color:#166534 !important;'>Optimal Growth Window</strong>: No major environmental stress alerts for this cycle.</li>")
+                    alerts.append(f"<li>{t['advisory_optimal']}</li>")
                     
                 st.markdown(f"""
                 <div class="custom-html-card" style='background-color:#FFFBEB; border: 1px solid #FEF3C7; padding:1.2rem; border-radius:12px; color:#92400E !important;'>
@@ -1350,18 +1524,18 @@ if predict_button:
             best_yield_val = results_by_yield[0][1]
             if use_acres:
                 best_yield_val_disp = best_yield_val * 0.4047
-                yield_unit = "MT/Acre"
+                yield_unit = t['unit_acres']
             else:
                 best_yield_val_disp = best_yield_val
-                yield_unit = "MT/Hectare"
+                yield_unit = t['unit_hectares']
                 
             st.markdown(f"""
             <div class="custom-html-card" style='background-color:#F0FDF4; border: 1px solid #DCFCE7; padding:1.2rem; border-radius:12px; margin-top:1rem; color:#166534 !important;'>
-                <strong style='color:#166534 !important;'>📊 Alternative Crop Analysis & Farmer Advisory:</strong>
+                <strong style='color:#166534 !important;'>{t['leaderboard_advisory_title']}:</strong>
                 <ul style='margin:0.5rem 0 0 0; padding-left:1.2rem; line-height:1.6; color:#166534 !important;'>
-                    <li>💰 <strong style='color:#166534 !important;'>Maximum Revenue Option</strong>: Cultivating <strong>{best_rev_crop}</strong> is expected to yield the highest market return of <strong>INR {best_rev_val:,.2f}</strong> for your field size.</li>
-                    <li>🌾 <strong style='color:#166534 !important;'>Maximum Bulk Production</strong>: If your goal is high yield volume, <strong>{best_yield_crop}</strong> is the strongest performer, with an expected yield of <strong>{best_yield_val_disp:.2f} {yield_unit}</strong>.</li>
-                    <li>🚜 <strong style='color:#166534 !important;'>Risk Diversification</strong>: Farmers are advised to split their land (e.g., 70% primary crop, 30% alternative crop) to hedge against crop failure and market price drops.</li>
+                    <li>{t['leaderboard_revenue_opt'].format(crop=best_rev_crop, revenue=best_rev_val)}</li>
+                    <li>{t['leaderboard_yield_opt'].format(crop=best_yield_crop, yield_val=best_yield_val_disp, unit=yield_unit)}</li>
+                    <li>{t['leaderboard_diversification']}</li>
                 </ul>
             </div>
             """, unsafe_allow_html=True)
