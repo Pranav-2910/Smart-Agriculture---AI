@@ -609,31 +609,31 @@ SOIL_PROFILES = {
 @st.cache_resource
 def load_artifacts():
     """Loading serialized artifacts from disk..."""
-    with open("crop_yield_model.pkl", "rb") as f:
+    with open("models/crop_yield_model.pkl", "rb") as f:
         model = pickle.load(f)
-    with open("reg_scaler.pkl", "rb") as f:
+    with open("models/reg_scaler.pkl", "rb") as f:
         scaler = pickle.load(f)
-    with open("feature_cols.pkl", "rb") as f:
+    with open("models/feature_cols.pkl", "rb") as f:
         feature_cols = pickle.load(f)
     return model, scaler, feature_cols
 
 @st.cache_resource
 def load_clf_artifacts():
     """Loading serialized classifier artifacts from disk..."""
-    with open("crop_recommendation_model.pkl", "rb") as f:
+    with open("models/crop_recommendation_model.pkl", "rb") as f:
         model_clf = pickle.load(f)
-    with open("scaler.pkl", "rb") as f:
+    with open("models/scaler.pkl", "rb") as f:
         scaler_clf = pickle.load(f)
-    with open("feature_cols_clf.pkl", "rb") as f:
+    with open("models/feature_cols_clf.pkl", "rb") as f:
         feature_cols_clf = pickle.load(f)
-    with open("label_encoder.pkl", "rb") as f:
+    with open("models/label_encoder.pkl", "rb") as f:
         le = pickle.load(f)
     return model_clf, scaler_clf, feature_cols_clf, le
 
 @st.cache_data
 def load_data_and_profiles():
     """Loading dynamic dataframes and generating crop averages..."""
-    df_m = pd.read_csv("crop_dataset.csv")
+    df_m = pd.read_csv("data/crop_dataset.csv")
     states = sorted(df_m["state"].unique().tolist())
     seasons = sorted(df_m["season"].unique().tolist())
     crops = sorted(df_m["crop"].unique().tolist())
