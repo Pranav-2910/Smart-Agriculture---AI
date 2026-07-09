@@ -66,7 +66,7 @@ Calculated interaction variables to capture biological and farming input context
 2.  **Standardization:** Scaled features using `StandardScaler` to remove scale bias across NPK values (0-150) and pH levels (3.5-9.9).
 3.  **Classifier Training (Extra Trees):**
     *   Fit an `ExtraTreesClassifier` to recommend crops.
-    *   **Optimization:** Constrained the tree depth to `max_depth=14` and `n_estimators=100`. This shrank the serialized file size by **77% (from 241MB to 54MB)** to comply with GitHub's 100MB file limit, while maintaining a peak test accuracy of **92.58%**.
+    *   **Optimization:** Constrained the tree depth to `max_depth=14` and `n_estimators=100`.
 4.  **Regressor Training (Random Forest):**
     *   Fit a `RandomForestRegressor` to predict yield.
     *   **Optimization:** Constrained the depth to `max_depth=15` and `n_estimators=100` to shrink the model size to **67MB** while preserving a **98.82%** $R^2$ score.
